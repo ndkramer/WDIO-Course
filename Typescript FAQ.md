@@ -40,4 +40,23 @@ In summary, TypeScript enhances JavaScript by introducing optional static typing
    const PI = 3.14159;
    PI = 3.14; // This will throw an error, as 'const' does not allow reassignment
    
-In summary, use let for variables that need to be reassigned, and const for variables that should remain constant throughout the code.
+In summary, use let for variables that need reassignment and const for variables that should remain constant throughout the code.
+
+**3)  In TypeScript, {} and [] are used to represent different data structures:**
+1. {} - Curly braces represent an object:
+   * An object is a collection of key-value pairs (properties).
+   * Keys are strings, and values can be any data type.
+   * Example: { key1: 'value1', key2: 42 }
+2. [] - Square brackets represent an array:
+   * An array is an ordered list of elements.
+   * Elements can be any data type.
+   * Example: [1, 'string', { key: 'value' }]
+Here's a summary:
+:sparkles: Objects:
+* Syntax: {}
+* Structure: Key-value pairs
+* Example: { firstName: 'John', lastName: 'Doe' }
+:sparkles: Arrays:
+* Syntax: []
+* Structure: Ordered list of elements
+* Example: [1, 2, 3, 4]
