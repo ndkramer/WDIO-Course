@@ -1,0 +1,30 @@
+Can have multiple Scenario Outlines in the same feature file in WebDriverIO. :white_check_mark:
+Here's a brief example to illustrate this:
+
+Feature: Multiple Scenario Outlines
+
+  Background:
+    Given I am on the homepage
+
+  Scenario Outline: Scenario 1 - Check different elements
+    When I check the element "<element>"
+    Then the element should be visible
+
+    Examples:
+      | element   |
+      | #header   |
+      | #footer   |
+
+  Scenario Outline: Scenario 2 - Search for different keywords
+    When I enter the keyword "<keyword>" in the search box
+    And I click the search button
+    Then I should see the search results page
+
+    Examples:
+      | keyword   |
+      | shoes     |
+      | clothes   |
+In this example:
+- There are two Scenario Outlines (Scenario 1 and Scenario 2) within the same feature file.
+- Each Scenario Outline has its own "Examples" table to define the data sets for that scenario.
+This way, you can create and manage multiple Scenario Outlines in a single feature file while keeping your tests well-organized and easy to understand.
