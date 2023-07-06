@@ -1,0 +1,22 @@
+TypeScript is a superset of JavaScript, which means that it extends the capabilities of JavaScript by adding optional static typing and other features. TypeScript was developed by Microsoft to improve the development experience for large-scale applications and to provide better tooling and error checking.
+Here are some key differences between TypeScript and JavaScript:
+
+1. **Static typing**: :memo:
+   - TypeScript allows you to declare variable types, making it easier to catch type-related errors before they occur during runtime.
+   - JavaScript is a dynamically typed language, meaning variable types are determined at runtime.
+2. **Class-based Object-Oriented Programming (OOP)**: :books:
+   - TypeScript supports class-based OOP with inheritance, interfaces, and visibility modifiers like public, private, and protected.
+   - While JavaScript also supports OOP through prototypes, it doesn't have native support for these additional features.
+3. **Interfaces**: :handshake:
+   - TypeScript introduces interfaces, which help define the structure of an object and ensure that specific properties or methods are present.
+   - JavaScript doesn't have built-in support for interfaces.
+4. **Type inference and type annotations**: :mag_right:
+   - TypeScript can automatically infer types from the code and allows you to explicitly specify types using type annotations.
+   - JavaScript doesn't have built-in support for type inference or type annotations.
+5. **Compiler**: :hammer_and_wrench:
+   - TypeScript has a compiler that compiles TypeScript code into plain JavaScript code.
+   - JavaScript doesn't require a compiler.
+6. **Tooling and IDE support**: :computer:
+   - TypeScript provides better tooling and IDE support with features like autocomplete, refactoring, and error checking.
+   - JavaScript has limited tooling and IDE support in comparison.
+In summary, TypeScript enhances JavaScript by introducing optional static typing, better OOP support, interfaces, and improved tooling. This makes TypeScript more suitable for large-scale applications that require better error checking and maintainability.
