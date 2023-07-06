@@ -1,6 +1,5 @@
-**Here are some key differences between TypeScript and JavaScript:
-TypeScript is a superset of JavaScript, which means that it extends the capabilities of JavaScript by adding optional static typing and other features. TypeScript was developed by Microsoft to improve the development experience for large-scale applications and to provide better tooling and error checking.
-**
+**1) Here are some key differences between TypeScript and JavaScript:
+TypeScript is a superset of JavaScript, which means that it extends the capabilities of JavaScript by adding optional static typing and other features. TypeScript was developed by Microsoft to improve the development experience for large-scale applications and to provide better tooling and error checking.**
 
 1. **Static typing**: :memo:
    - TypeScript allows you to declare variable types, making it easier to catch type-related errors before they occur during runtime.
@@ -23,7 +22,7 @@ TypeScript is a superset of JavaScript, which means that it extends the capabili
 In summary, TypeScript enhances JavaScript by introducing optional static typing, better OOP support, interfaces, and improved tooling. This makes TypeScript more suitable for large-scale applications that require better error checking and maintainability.
 
 
-**When writing JavaScript code (Textframe supports JavaScript), there are two main keywords used to declare variables: let and const. Here is the difference between them:**
+**2) When writing JavaScript code (Textframe supports JavaScript), there are two main keywords used to declare variables: let and const. Here is the difference between them:**
 1. let:
    - It is used to declare a variable that can be reassigned.
    - It has block scope, which means it is only accessible within the block where it is defined.
