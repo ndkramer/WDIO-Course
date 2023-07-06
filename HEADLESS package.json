@@ -1,0 +1,27 @@
+{
+  "name": "wdio-course",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "wdio": "cross-env HEADLESS=N  wdio run ./wdio.conf.ts",
+    "demo": "cross-env HEADLESS=Y  wdio run ./wdio.conf.ts --cucumberOpts.tagExpression='@demo'",
+    "_comment1": "validate that wdio.conf.ts does not have a value in --cucumberOpts.tagExpression",
+    "_comment2": "you may need to run this script thie frist time you run headless to set up cross-env dep: npm install --save-dev cross-env"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@wdio/cli": "^8.11.2",
+    "@wdio/cucumber-framework": "^8.11.0",
+    "@wdio/local-runner": "^8.11.2",
+    "@wdio/spec-reporter": "^8.11.2",
+    "chromedriver": "^114.0.2",
+    "cross-env": "^7.0.3",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.6",
+    "wdio-chromedriver-service": "^8.1.1"
+  }
+}
