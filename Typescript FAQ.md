@@ -56,6 +56,14 @@ Here's a summary:
 * Syntax: {}
 * Structure: Key-value pairs
 * Example: { firstName: 'John', lastName: 'Doe' }
+* 
+
+**4) In TypeScript, there is no functional difference between single quotes (' ') and double quotes (” “). You can use them interchangeably to define string values. However, it's essential to maintain consistency throughout your code for better readability.
+Here's an example demonstrating the usage of both:**
+typescript
+let singleQuoteString: string = 'Hello, I am using single quotes!';
+let doubleQuoteString: string = "Hello, I am using double quotes!";
+In both cases, you are defining a string value. Some developers prefer to use single quotes, while others prefer double quotes, but it's up to personal preference and coding style. Just stick to one type consistently across your project to avoid confusion.
 :sparkles: Arrays:
 * Syntax: []
 * Structure: Ordered list of elements
