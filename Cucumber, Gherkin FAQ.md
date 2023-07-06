@@ -1,5 +1,5 @@
-1) Can have multiple Scenario Outlines in the same feature file in WebDriverIO. :white_check_mark:
-Here's a brief example to illustrate this:
+**1) Can have multiple Scenario Outlines in the same feature file in WebDriverIO. :white_check_mark:
+Here's a brief example to illustrate this:**
 
 Feature: Multiple Scenario Outlines
 
@@ -30,8 +30,8 @@ In this example:
 This way, you can create and manage multiple Scenario Outlines in a single feature file while keeping your tests well-organized and easy to understand.
 
 
-2) You can use if-else statements in a step-definition file when working with WebdriverIO and TypeScript. Step definitions are just regular JavaScript/TypeScript functions, so you can use any control structures available in the language.
-Here's an example of using an if-else statement in a step-definition file:
+**2) You can use if-else statements in a step-definition file when working with WebdriverIO and TypeScript. Step definitions are just regular JavaScript/TypeScript functions, so you can use any control structures available in the language.
+Here's an example of using an if-else statement in a step-definition file:**
 typescript
 import { Given, When, Then } from "@cucumber/cucumber";
 import { expect } from "chai";
