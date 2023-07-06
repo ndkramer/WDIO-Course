@@ -1,5 +1,6 @@
+**Here are some key differences between TypeScript and JavaScript:
 TypeScript is a superset of JavaScript, which means that it extends the capabilities of JavaScript by adding optional static typing and other features. TypeScript was developed by Microsoft to improve the development experience for large-scale applications and to provide better tooling and error checking.
-Here are some key differences between TypeScript and JavaScript:
+**
 
 1. **Static typing**: :memo:
    - TypeScript allows you to declare variable types, making it easier to catch type-related errors before they occur during runtime.
@@ -20,3 +21,24 @@ Here are some key differences between TypeScript and JavaScript:
    - TypeScript provides better tooling and IDE support with features like autocomplete, refactoring, and error checking.
    - JavaScript has limited tooling and IDE support in comparison.
 In summary, TypeScript enhances JavaScript by introducing optional static typing, better OOP support, interfaces, and improved tooling. This makes TypeScript more suitable for large-scale applications that require better error checking and maintainability.
+
+
+**When writing JavaScript code (Textframe supports JavaScript), there are two main keywords used to declare variables: let and const. Here is the difference between them:**
+1. let:
+   - It is used to declare a variable that can be reassigned.
+   - It has block scope, which means it is only accessible within the block where it is defined.
+   Example:
+   
+   let counter = 0;
+   counter = 1; // This is valid, as 'let' allows reassignment
+   
+2. const:
+   - It is used to declare a constant variable, whose value cannot be changed once assigned.
+   - It also has block scope, like let.
+   - It must be initialized with a value when declared.
+   Example:
+   
+   const PI = 3.14159;
+   PI = 3.14; // This will throw an error, as 'const' does not allow reassignment
+   
+In summary, use let for variables that need to be reassigned, and const for variables that should remain constant throughout the code.
