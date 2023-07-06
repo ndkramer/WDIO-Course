@@ -1,0 +1,55 @@
+Feature File:
+
+Feature: Search in Chrmome
+
+@demo
+  Scenario Outline: Searching for WDIO
+
+    Given I am on the google search page
+    When Search with <searchItem>
+    Then Click on the first search result
+    Then URL should match <expectedUrl>
+
+    Examples:
+      | test ID  | searchItem             | expectedUrl                        |
+      | 1        | WDIO                   |https://www.wdio.com/ |
+
+
+
+Steps File:
+
+import { Given,When,Then } from "@wdio/cucumber-framework";
+
+Given(/^I am on the google search page$/, async function() {
+
+    await browser.url("https://www.google.com")
+    console.log('>> Google open');
+	
+});
+
+When(/^Search with (.*)$/, async (searchItem) => {
+        console.log('>> search Item:',searchItem);
+        let ele = await $('[name=q]')
+       await ele.setValue(searchItem)
+       await browser.keys("Enter")
+    });
+
+    
+Then(/^Click on the first search result$/, async function () {
+
+    console.log('>> click results:');
+    let ele = await $('<h3>')
+    ele.click()
+
+});
+
+
+Then(/^URL should match (.*)$/, async function (expectedURL) {
+    console.log('>> expectedURL:',expectedURL);
+    //let url = await browser.getUrl()
+    //expect(url).to.equal(expectedURL)
+
+     await expect(browser).toHaveUrl(expectedURL)
+
+});
+
