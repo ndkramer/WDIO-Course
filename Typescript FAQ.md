@@ -86,7 +86,7 @@ Each function body is a block of code where semicolons are used to separate indi
 * Structure: Ordered list of elements
 * Example: [1, 2, 3, 4]
 
-*** 6)  In the following 2 Given statements what is the difference between the await function ‘async (siteURL) =>’ and ‘async function (siteURL) ’**
+**6)  In the following 2 Given statements what is the difference between the await function ‘async (siteURL) =>’ and ‘async function (siteURL) ’**
 **Statement #1**
 Given (/^Open web Page (.*)$/, async (siteURL) => {
     await browser.url(siteURL)
@@ -97,6 +97,9 @@ Given (/^Open web Page (.*)$/, async function (siteURL) {
 });
 
 Both statements are essentially doing the same thing, which is defining an asynchronous function that opens a webpage using a given URL. The difference lies in the syntax used to define the function:
+
 Statement #1 uses an arrow function (siteURL) => {}. Arrow functions were introduced in ES6 and provide a concise syntax to write function expressions. They don't have their own bindings to this or super, and should not be used as methods.
+
 Statement #2 uses a traditional function expression function (siteURL) {}. This is the older way to define functions in JavaScript. Unlike arrow functions, these have their own bindings to this.
+
 In the context of your Given statements, both will work the same way as they don't rely on this or super. However, if you were to use this inside the function, the behavior would differ.
