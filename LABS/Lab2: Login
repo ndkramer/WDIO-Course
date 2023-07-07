@@ -1,0 +1,64 @@
+Feature File:
+
+Feature: Test the login page
+
+
+  Scenario Outline: Test the login page
+
+   Given Open web Page <siteUrl>
+   When user click on the button for login form
+   When user enters a <userName>
+   When user enters the <password>
+   When user click on the button for submit button
+   Then user should receive popup with <message>
+
+ 
+   
+
+    Examples:
+      | Test ID   | siteUrl| userName                        | password | message |
+      | 1         | https://www.one80training.com/scrum-labs/| one80    | one80abc | Login Successful |
+
+
+
+
+Steps-Definition:
+import { Given, When, Then} from "@wdio/cucumber-framework";
+
+Given (/^Open web Page (.*)$/, async (siteURL) => {
+    await browser.url(siteURL);
+    
+});
+
+When (/^user click on the button for login form$/, async function() {
+    let login_button = await $('.et_pb_bg_layout_dark.et_pb_button.et_pb_button_1');
+    await login_button.click();
+
+});
+
+When (/^user enters a (.*)$/, async function(userName) {
+    let elem_userName = await $('#text');
+    await elem_userName.setValue(userName);
+    await browser.pause(1000);
+
+});
+
+When (/^user enters the (.*)$/, async function(password) {
+    let elem_password = await $('#password');
+    await elem_password.setValue(password);
+    await browser.pause(1000);
+
+});
+
+When (/^user click on the button for submit button$/, async function() {
+    let login_button = await $('#login-button');
+    await login_button.click();
+});
+
+Then (/^user should receive popup with (.*)$/, async function(message) {
+    let alert_text = await browser.getAlertText();
+    await expect(alert_text).toEqual(message);
+    console.log('>>> alert_text: ',alert_text);
+    await browser.pause(1000);
+
+});
