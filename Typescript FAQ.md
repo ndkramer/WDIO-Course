@@ -56,7 +56,7 @@ Here's a summary:
 * Syntax: {}
 * Structure: Key-value pairs
 * Example: { firstName: 'John', lastName: 'Doe' }
-* 
+  
 
 **4) In TypeScript, there is no functional difference between single quotes (' ') and double quotes (” “). You can use them interchangeably to define string values. However, it's essential to maintain consistency throughout your code for better readability.
 Here's an example demonstrating the usage of both:**
@@ -66,32 +66,36 @@ let doubleQuoteString: string = "Hello, I am using double quotes!";
 In both cases, you are defining a string value. Some developers prefer to use single quotes, while others prefer double quotes, but it's up to personal preference and coding style. Just stick to one type consistently across your project to avoid confusion.
 
 **5) When should you use a ';' inside of  Given, When, Then** 
+
 In TypeScript, a statically typed superset of JavaScript, semicolons are used to separate statements. They are optional and mostly used for stylistic purposes. However, they can help make your code more readable and prevent some specific types of errors.
 In the context of a step-definition file using WebdriverIO, Cucumber, and TypeScript, you would typically use a semicolon at the end of each statement within the Given, When, Then functions. For example:
 typescript
+
 Given('a precondition', function () {
   // some code here;
 });
+
 
 When('an action by the user', function () {
   // some code here;
 });
 
+
 Then('an observable outcome', function () {
   // some code here;
 });
+
 Each function body is a block of code where semicolons are used to separate individual statements. If you're writing a single line of code inside the function, the semicolon may be optional due to automatic semicolon insertion (ASI) in JavaScript/TypeScript. But it's generally considered good practice to always include them to avoid potential issues.
-:sparkles: Arrays:
-* Syntax: []
-* Structure: Ordered list of elements
-* Example: [1, 2, 3, 4]
+
 
 **6)  In the following 2 Given statements what is the difference between the await function ‘async (siteURL) =>’ and ‘async function (siteURL) ’**
 **Statement #1**
+
 Given (/^Open web Page (.*)$/, async (siteURL) => {
     await browser.url(siteURL)
 });
 **Statement #2**
+
 Given (/^Open web Page (.*)$/, async function (siteURL) {
     await browser.url(siteURL)
 });
