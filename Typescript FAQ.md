@@ -64,6 +64,23 @@ typescript
 let singleQuoteString: string = 'Hello, I am using single quotes!';
 let doubleQuoteString: string = "Hello, I am using double quotes!";
 In both cases, you are defining a string value. Some developers prefer to use single quotes, while others prefer double quotes, but it's up to personal preference and coding style. Just stick to one type consistently across your project to avoid confusion.
+
+**5) When should you use a ';' inside of  Given, When, Then** 
+In TypeScript, a statically typed superset of JavaScript, semicolons are used to separate statements. They are optional and mostly used for stylistic purposes. However, they can help make your code more readable and prevent some specific types of errors.
+In the context of a step-definition file using WebdriverIO, Cucumber, and TypeScript, you would typically use a semicolon at the end of each statement within the Given, When, Then functions. For example:
+typescript
+Given('a precondition', function () {
+  // some code here;
+});
+
+When('an action by the user', function () {
+  // some code here;
+});
+
+Then('an observable outcome', function () {
+  // some code here;
+});
+Each function body is a block of code where semicolons are used to separate individual statements. If you're writing a single line of code inside the function, the semicolon may be optional due to automatic semicolon insertion (ASI) in JavaScript/TypeScript. But it's generally considered good practice to always include them to avoid potential issues.
 :sparkles: Arrays:
 * Syntax: []
 * Structure: Ordered list of elements
