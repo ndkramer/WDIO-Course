@@ -1,6 +1,6 @@
 **5 Best Practices for Feature Files**
 1. Use descriptive and concise feature names: Choose a clear and meaningful name for your feature that accurately represents the functionality being tested.
-2. Write scenarios using Gherkin syntax: Use Given-When-Then format to define the steps of your scenarios. Start with a Given step to set up the initial state, followed by a When step to describe the action being performed, and finally a Then step to define the expected outcome.
+2. Write scenarios using Gherkin syntax: Use Given-When-Then format to define the steps of your scenarios. Start with a Given step to set up the initial state, followed by a When step to describe the action being performed, and finally, a Then step to define the expected outcome.
 3. Keep scenarios independent and focused: Each scenario should test a specific behavior or functionality in isolation. Avoid creating scenarios that depend on the outcome of previous scenarios.
 4. Use scenario outlines for data-driven testing: If you have multiple sets of test data to validate the same behavior, use scenario outlines to define a template scenario and provide different inputs using examples.
 5. Use meaningful and readable step definitions: Write step definitions that are easy to understand and maintain. Use clear and descriptive names for your step definitions to improve readability.
