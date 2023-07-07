@@ -1,4 +1,4 @@
-Feature File:
+** Feature File: **
 
 Feature: Test the login page
 
@@ -22,7 +22,7 @@ Feature: Test the login page
 
 
 
-Steps-Definition:
+** Steps File: **
 import { Given, When, Then} from "@wdio/cucumber-framework";
 
 Given (/^Open web Page (.*)$/, async (siteURL) => {
