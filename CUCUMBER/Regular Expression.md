@@ -32,3 +32,6 @@
 17. **a{3,}** - Matches 3 or more consecutive 'a' characters
 18. **a{3,6}** - Matches between 3 and 6 'a' characters
 Remember, regular expressions can be very powerful but also complex, so use them wisely
+
+**Another Reference: ** https://github.com/ndkramer/WDIO-Course/blob/main/CUCUMBER/Cucumber-Regular-Expressions-Cheat-Sheet.pdf
+
