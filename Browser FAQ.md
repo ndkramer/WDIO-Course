@@ -1,3 +1,6 @@
+Supporting Characters: https://w3c.github.io/webdriver/#keyboard-actions
+
+
 Here are some of the most commonly used browser functions in WebdriverIO:
 1. browser.url(): Navigates to a URL.
 2. browser.newWindow(): Opens a new browser window or tab.
@@ -25,3 +28,6 @@ Here are some of the most commonly used browser functions in WebdriverIO:
 24. browser.isEnabled(): Checks if an element is enabled.
 25. browser.setValue(): Sets a value to an input field.
 Remember, each of these functions may require specific parameters depending on what you're trying to achieve. Always refer to the official WebdriverIO documentation for detailed usage instructions.
+
+Supporting Characters: https://w3c.github.io/webdriver/#keyboard-actions
+
