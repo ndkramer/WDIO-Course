@@ -79,7 +79,32 @@ Here's a simpler way to understand it:
 In essence, Node.js allows you to use JavaScript for more than just making websites interactive. With it, you can build entire servers and do a lot of other powerful things!
 
 
+## **Cucumber Definition:**
+Cucumber is a testing tool that supports Behavior Driven Development (BDD). It allows you to write application behavior in plain meaningful English text using a simple grammar defined by a language called Gherkin.
 
+In Cucumber, the BDD specifications are written in a .feature file. This file contains a high-level description of the test scenario in multiple languages, like English, French etc. Each line of the Gherkin language maps to a method in a code where you can write your test code.
 
+Cucumber allows the test script to be written without knowledge of any code. This allows developers to write test cases in a more understandable format.
 
+## **Gherkin Definition:**
+
+Gherkin is a language used to write tests in Cucumber, a testing tool that supports Behavior Driven Development (BDD). It's designed to be easy to understand and readable by humans, which makes it great for collaboration between all stakeholders in a software project, including developers, QA engineers, business analysts, and non-technical people.
+
+In Gherkin, tests are written in a format that describes a certain feature of an application and how it should behave. Each test is called a "scenario", and scenarios are grouped into "features". A typical Gherkin scenario looks like this:
+
+                  Scenario: User logs in successfully
+                  
+                    Given I am on the login page
+                    
+                    When I enter valid credentials
+                    
+                    Then I should be redirected to the dashboard
+  
+Each line in the scenario starts with a keyword:
+- "Given" sets up the initial context.
+- "When" describes the action that triggers the behavior to be tested.
+- "And" can be used to chain multiple Given, When, or Then steps.
+- "Then" describes the expected outcome or result.
+Gherkin also supports parameters, tables, and other advanced features, making it a flexible and powerful tool for writing tests.
+It's important to note that Gherkin scenarios should describe behavior, not implementation details. This makes the tests easier to understand and maintain, and allows them to serve as living documentation for the system.
 
