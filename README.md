@@ -44,6 +44,9 @@ WebDriver is a general-purpose library for automating web browsers. It was start
 **Architecture:**
 All software runs on your local computer:
 
+<img width="631" alt="image" src="https://github.com/ndkramer/WDIO-Course/assets/7460198/a1a259ff-eeb5-4db3-97cf-0ea635106d93">
+
+
 *Node runs Cucumber or Mocha framework and runner of test script.
 
 *Expect and\or Chai is the assertion library.
