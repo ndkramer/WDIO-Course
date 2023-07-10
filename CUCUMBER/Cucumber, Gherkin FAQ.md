@@ -1,3 +1,8 @@
+<img width="665" alt="image" src="https://github.com/ndkramer/WDIO-Course/assets/7460198/9814d32c-0fd7-407a-b18d-eeb3e35621ce">
+
+
+
+
 **5 Best Practices for Feature Files**
 1. Use descriptive and concise feature names: Choose a clear and meaningful name for your feature that accurately represents the functionality being tested.
 2. Write scenarios using Gherkin syntax: Use Given-When-Then format to define the steps of your scenarios. Start with a Given step to set up the initial state, followed by a When step to describe the action being performed, and finally, a Then step to define the expected outcome.
