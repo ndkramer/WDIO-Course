@@ -83,6 +83,24 @@ In this example, we're using an if-else statement inside the Then step definitio
 
 **4) Can you have more than one feature file contain more than one 'Feature' section ?**
 
-   5) Yes, a feature file in Cucumber can technically contain more than one feature. However, it's considered best practice to keep each feature in its own feature file for better organization and readability. Each feature file should ideally represent a single functionality or aspect of the application you're testing.
+Yes, a feature file in Cucumber can technically contain more than one feature. However, it's considered best practice to keep each feature in its own feature file for better organization and readability. Each feature file should ideally represent a single functionality or aspect of the application you're testing.
+
+**5) In a Given, When, Then Statement in the steps file, when should I use a " " vs a /^ $/**
+  
+The symbols " " and '^$/' are used in different contexts in programming:
+
+1. " ": These are double quotes, used to define strings in many programming languages including JavaScript (which TypeScript is based on). In your provided code, they are used to define the string that describes the scenario step in Cucumber ("I am on the google search page").
+   
+3. '^$/': These symbols are often seen in regular expressions (regex). '^' denotes the start of a line, '$' denotes the end of a line, and '/' are delimiters that mark the start and end of the regex pattern. However, in your provided code, these symbols are not present.
+In the context of Cucumber step definitions, you might use regular expressions to match more flexible patterns. For example, if you want a step to match both "I am on the google search page" and "I am on the yahoo search page", you could write it like this:
+
+Given(/^I am on the (.*) search page$/, async function(searchEngine) {
+    await browser.url(`https://${searchEngine}.com`);
+    console.log(`>>> ${searchEngine} is open`);
+    await browser.pause(3000);
+})
+
+In this case, the (.*) in the regular expression will match any sequence of characters, and the matched sequence will be passed as an argument to the function.
+
 
    
