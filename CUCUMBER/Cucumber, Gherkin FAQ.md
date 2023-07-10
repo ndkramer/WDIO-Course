@@ -76,3 +76,13 @@ Then("I should see the {string} message", async function (expectedMessage: strin
   }
 });
 In this example, we're using an if-else statement inside the Then step definition to handle different expectations for the displayed message.
+
+**3) Can you have more than one Scenario outline in a Feature File?**
+
+   Yes, a feature file in Cucumber can contain more than one Scenario Outline. Each Scenario Outline provides a parametrized scenario script that is executed for provided examples.
+
+**4) Can you have more than one feature file contain more than one 'Feature' section ?**
+
+   5) Yes, a feature file in Cucumber can technically contain more than one feature. However, it's considered best practice to keep each feature in its own feature file for better organization and readability. Each feature file should ideally represent a single functionality or aspect of the application you're testing.
+
+   
