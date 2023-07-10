@@ -9,3 +9,11 @@
    Note: For all exercises, we will be using Chrome Browser.
 
 
+
+**   Activity 2:**
+   Validate that the user can go to https://webdriver.io/
+   Once on that page they should be able to go to the community tab
+   On the commubity tab they should be able to go to the  youtube channel
+   Verify that the yourtube channel is the official channel for WebDriverIO
+
+
