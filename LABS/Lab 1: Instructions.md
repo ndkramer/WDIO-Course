@@ -10,10 +10,13 @@
 
 
 
-**   Activity 2:**
+**Activity 2:**
    Validate that the user can go to https://webdriver.io/
-   Once on that page they should be able to go to the community tab
-   On the commubity tab they should be able to go to the  youtube channel
-   Verify that the yourtube channel is the official channel for WebDriverIO
+   
+   Once on that page we should be able to click the community tab.
+   
+   On the commubity tab they should be able to click youtube channel icon menu.
+   
+   Verify that the yourtube channel is the official channel for WebDriverIO.
 
 
