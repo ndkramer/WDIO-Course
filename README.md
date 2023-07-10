@@ -108,3 +108,14 @@ Each line in the scenario starts with a keyword:
 Gherkin also supports parameters, tables, and other advanced features, making it a flexible and powerful tool for writing tests.
 It's important to note that Gherkin scenarios should describe behavior, not implementation details. This makes the tests easier to understand and maintain, and allows them to serve as living documentation for the system.
 
+##  **npm run wdio**
+When you type 'npm run wdio', you're instructing Node Package Manager (npm) to execute the script associated with 'wdio' in your package.json file. Here are the steps that WebdriverIO initiates:
+1. **Configuration**: WebdriverIO starts by reading the package.json file to determine envriopmental variables.  Then the configuration file: wdio.conf.js file is iniated. This configuration file contains all the settings for your test suite, including the specs to run, the test framework to use (like Mocha, Jasmine, or Cucumber), the browser to use, and more.
+2. **Initialization**: WebdriverIO initializes the WebDriver protocol. This is a standard protocol used by WebdriverIO to communicate with browser drivers (like ChromeDriver for Google Chrome, GeckoDriver for Firefox, etc.).
+3. **Session Creation**: WebdriverIO creates a new session. This is essentially starting a new instance of the specified browser.
+4. **Test Execution**: WebdriverIO then executes the test scripts written in TypeScript. These scripts use WebdriverIO commands to interact with web elements, check their state, perform actions like clicks or typing, and so on.
+5. **Assertion**: During test execution, assertions are made using a library like Chai. These assertions check if the actual result matches the expected result.
+6. **Reporting**: After the tests are executed, WebdriverIO generates a report detailing the results of each test case.
+7. **Session End**: Finally, WebdriverIO ends the session, closing the browser instance.
+Remember, 'npm run wdio' is a command specific to your project setup. It assumes that you have a script named 'wdio' in your package.json file. If you don't, you'll need to install WebdriverIO and set up your configuration file first.
+
