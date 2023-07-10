@@ -6,19 +6,33 @@ https://github.com/ndkramer/WDIO-Course
 
 ## **Names **	       	 
 Danielle Wallace
+
 Danqi Luo
+
 Di Zhong
+
 Erik Hemdal
+
 Harry Feng
+
 Jahnavi Tirunagari
+
 Jennifer Roh
+
 Jinyu Wang
+
 Keith O'Neal
+
 Phil Choiniere
+
 Phillip Matos
+
 Seonghoo Kim
+
 Sid Gangwani
+
 Yanni Pang
+
 Zhifei Zhang	 	
 
 ## **Email Addresses**
