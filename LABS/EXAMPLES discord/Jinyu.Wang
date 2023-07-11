@@ -1,0 +1,108 @@
+Hi Nick,
+
+Below's my way of doing switching different icon clicks. Apology that I'll be out for an appointment and won't be able to present my work right after lunch. 
+
+I noticed that the CSS for those 4 buttons are in similar format and the only difference is the name of the class (ex. .header-youtube-link vs. .header-github-link). So my approach is to use a string formatting that looks for only the name to pass in. Since I put only the key word as a parameter, I can also use browser.switchWindow() to look for it, instead of using the entire expectedUrl. This may not be the best practice as other webpage may have different class names, but I wanted to share my use case on string formatting, I think it is clear to read and quite easy to use. You use ` instead of ' as quotation, and place ${variable} inside the string, which will be replaced by the value of variable in result. This can be used anywhere looking for a string.  
+
+Hope this is helpful to the class, I'm not sure if this goes too advanced. 
+
+Features: 
+Feature: Test to make sure the youtube channel from WebDriver community opens correctly
+
+  Scenario Outline: Can we open WebDriver
+
+    Given I am on the WebDriver home page
+    When I click on Community tab
+    When I click on the <clickedIcon> icon menu
+    Then I should be taken to <expectedUrl> 
+
+    Examples: 
+      | Test ID | clickedIcon | expectedUrl                                                          |
+      | 1       | github      | https://github.com/webdriverio/webdriverio                           |
+      | 2       | twitter     | https://twitter.com/i/flow/login?redirect_after_login=%2Fwebdriverio |
+      | 3       | youtube     | https://www.youtube.com/@webdriverio                                 |
+
+  @demo
+  Scenario Outline: Can we open WebDriver Discord with a placeholder
+
+    Given I am on the WebDriver home page
+    When I click on Community tab
+    When I click on the <clickedIcon> icon menu
+    Then I should be taken to <expectedUrl> 
+    Then I should have element <element>
+
+    Examples:
+      | Test ID | clickedIcon | expectedUrl                           | element                |
+      | 4       | discord     | https://discord.com/invite/H4v23gQvkm | input[name='username'] |
+
+
+
+Steps:
+
+When(/^I click on the (.*) icon menu$/, async function(clickedIcon) {
+    console.log(`>>> click ${clickedIcon} icon menu`);
+    let elem_community = await $(`.header-${clickedIcon}-link.navbar__item.navbar__link`);
+    await elem_community.click();
+    await browser.switchWindow(`${clickedIcon}.com`);
+    await browser.pause(3000);
+});
+
+Then(/^I should have element (.*)$/, async function(element) {
+    console.log(`>>> element =: ${element}`);
+    let elem = await $(element);
+    await expect(elem).toExist();
+});
+'/
+
+
+Best, 
+Joy
+
+From: Jinyu Wang
+Sent: Tuesday, July 11, 2023 10:36 AM
+To: Nick Kramer <nick.kramer@webagesolutions.com>
+Subject: WDIO YouTube Channel Jinyu Wang
+ 
+Features: webdriver_youtube.feature
+
+Feature: Test to make sure the youtube channel from WebDriver community opens correctly
+
+  Scenario Outline: Can we open WebDriver
+
+    Given I am on the WebDriver home page
+    When I click on Community tab
+    When I click on the youtube channel icon menu
+    Then I should be taken to <expectedUrl> 
+
+    Examples: 
+      | Test ID | expectedUrl                          |
+      | 1       | https://www.youtube.com/@webdriverio |
+
+
+Steps: 
+
+Given(/^I am on the WebDriver home page$/, async function() {
+    await browser.url("https://webdriver.io/");
+    console.log('>>> WebDriver is open');
+    await browser.maximizeWindow()
+    await browser.pause(3000);
+});
+
+When(/^I click on Community tab$/, async function() {
+    console.log('>>> click Community tab');
+    let elem_community = await $('.navbar__items > a:nth-of-type(6)');
+    await elem_community.click();
+});
+
+When(/^I click on the youtube channel icon menu$/, async function() {
+    console.log('>>> click youtube channel icon menu');
+    let elem_community = await $('.header-youtube-link.navbar__item.navbar__link');
+    await elem_community.click();
+    await browser.switchWindow('youtube.com');
+    await browser.pause(3000);
+});
+
+Then(/^I should be taken to (.*)$/, async function(expectedUrl) {
+    console.log('>>> expectedUrl =: ', expectedUrl);
+    await expect(browser).toHaveUrl(expectedUrl);
+});
