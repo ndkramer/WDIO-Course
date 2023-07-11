@@ -30,6 +30,9 @@ Here are some of the most commonly used browser functions in WebdriverIO:
 24. browser.isEnabled(): Checks if an element is enabled.
 25. browser.setValue(): Sets a value to an input field.
 26. browser.maximizeWindow(): Set the browser window to full screen
+27. getAlertText():
+    https://www.qafox.com/webdriverio-get-alert-text/#:~:text=getAlertText()%3A%2D%20getAlertText(),prompt%2C%20it%20returns%20an%20error.
+    
 Remember, each of these functions may require specific parameters depending on what you're trying to achieve. Always refer to the official WebdriverIO documentation for detailed usage instructions.
 
 Supporting Characters: https://w3c.github.io/webdriver/#keyboard-actions
