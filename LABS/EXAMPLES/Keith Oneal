@@ -1,0 +1,107 @@
+Webdriver_youtube.feature:
+Feature: Test make sure we can go to the webdriver youtube page
+@demo
+  Scenario Outline: Go to the webdriver youtube page
+ 
+    Given I am on the Google search page
+    When Enter in search field <searchItem>
+    When I click on first result
+    When I select Community
+    When I select youtube icon
+    Then YouTube page presents <expectedUrl>
+ 
+    Examples:
+        | Test ID | searchItem  | expectedUrl           |
+        | 1       | webdriverio | https://www.youtube.com/@webdriverio |
+ 
+ 
+Steps.ts:
+import { Given, When, Then } from "@wdio/cucumber-framework";
+Given(/^I am on the Google search page/, async function() {
+    await browser.url("https://google.com");
+    console.log('>>> Google is open');
+    await browser.pause(2000);
+})
+ 
+When(/^Enter in search field (.*)$/, async function(searchItem) {
+    console.log('>>> search item = ', searchItem);
+    let elem_search = await $('[name=q]');
+    await elem_search.setValue(searchItem);
+    await browser.keys("Enter");
+});
+ 
+When(/^I click on first result$/, async function () {
+    let elem_firstResult = await $('<h3>');
+    await browser.pause(1000);
+    await elem_firstResult.click();
+    await browser.maximizeWindow();
+});
+ 
+When(/^I select Community$/, async function () {
+    let elem_community = await $('.navbar__inner .navbar__items:nth-of-type(1) .navbar__link:nth-child(7)');
+    await browser.pause(1000);
+    await elem_community.click();  
+});
+ 
+When(/^I select youtube icon$/, async function () {
+    let elem_youTube = await $('.header-youtube-link.navbar__item.navbar__link');
+    await browser.pause(1000);
+    await elem_youTube.click();  
+});
+ 
+Then(/^Page presented is (.*)$/, async function (expectedUrl21) {
+    console.log('>>>expectedUrl21' , expectedUrl21);
+    await expect(browser).toHaveUrl(expectedUrl21);
+});
+ 
+Then(/^YouTube page presents (.*)$/, async function (expectedUrl22) {
+     console.log('>>>expectedUrl22 - ', expectedUrl22);
+     await browser.switchWindow("youtube.com");
+     await expect(browser).toHaveUrl(expectedUrl22);
+});
+ 
+ 
+Feature.feature:
+import { Given, When, Then } from "@wdio/cucumber-framework";
+Given(/^I am on the Google search page/, async function() {
+    await browser.url("https://google.com");
+    console.log('>>> Google is open');
+    await browser.pause(2000);
+})
+ 
+When(/^Enter in search field (.*)$/, async function(searchItem) {
+    console.log('>>> search item = ', searchItem);
+    let elem_search = await $('[name=q]');
+    await elem_search.setValue(searchItem);
+    await browser.keys("Enter");
+});
+ 
+When(/^I click on first result$/, async function () {
+    let elem_firstResult = await $('<h3>');
+    await browser.pause(1000);
+    await elem_firstResult.click();
+    await browser.maximizeWindow();
+});
+ 
+When(/^I select Community$/, async function () {
+    let elem_community = await $('.navbar__inner .navbar__items:nth-of-type(1) .navbar__link:nth-child(7)');
+    await browser.pause(1000);
+    await elem_community.click();  
+});
+ 
+When(/^I select youtube icon$/, async function () {
+    let elem_youTube = await $('.header-youtube-link.navbar__item.navbar__link');
+    await browser.pause(1000);
+    await elem_youTube.click();  
+});
+ 
+Then(/^Page presented is (.*)$/, async function (expectedUrl21) {
+    console.log('>>>expectedUrl21' , expectedUrl21);
+    await expect(browser).toHaveUrl(expectedUrl21);
+});
+ 
+Then(/^YouTube page presents (.*)$/, async function (expectedUrl22) {
+     console.log('>>>expectedUrl22 - ', expectedUrl22);
+     await browser.switchWindow("youtube.com");
+     await expect(browser).toHaveUrl(expectedUrl22);
+});
