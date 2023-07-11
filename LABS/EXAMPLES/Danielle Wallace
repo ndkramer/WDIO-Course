@@ -1,0 +1,77 @@
+feature.feature
+Feature: Test to make sure chrome and google search are working correctly
+ 
+
+  Scenario Outline: can we open google
+ 
+    Given I am on the google search page
+    When I search for <searchItem>
+    When Click on the first search result
+    Then URL should match <expectedURL>
+ 
+    Examples:
+      | Test ID | searchItem  | expectedURL           |
+      | 1       | WDIO        | https://www.wdio.com/ |
+      | 2       | WDIO Driver | https://webdriver.io/ |
+ 
+
+webdriver_youtube.feature
+Feature: Test that we can navigate to WebDriverIO's YouTube channel
+    @demo
+    Scenario Outline: See Above
+        Given I am on the WebDriverIO home page
+        When I click on the community tab
+        When I click on the YouTube icon
+        Then I am on the official WebDriverIO YouTube channel
+ 
+steps.ts
+import { Given, When, Then } from "@wdio/cucumber-framework";
+ 
+Given(/^I am on the google search page$/, async function() {
+    await browser.url(https://google.com);
+    console.log('>>> Google is open');
+    //await browser.pause(5000);
+});
+ 
+When(/^I search for (.*)$/, async function(searchItem) {
+    console.log('>>> searchItem =', searchItem);
+    let elem_search = await $('[name=q]');
+    await elem_search.setValue(searchItem);
+    await browser.keys("Enter");
+});
+ 
+When(/^Click on the first search result$/, async function() {
+    let elem_firstResult = await $('<h3>');
+    await elem_firstResult.click();
+});
+ 
+Then(/^URL should match (.*)$/, async function(expectedURL) {
+    console.log('>>> expectedURL =', expectedURL);
+    await expect(browser).toHaveUrl(expectedURL);
+});
+ 
+Given(/^I am on the WebDriverIO home page$/, async function() {
+    await browser.url(https://webdriver.io/);
+    console.log('>>> On WebDriverIO home page');
+});
+ 
+When(/^I click on the community tab$/, async function() {
+    let elem_communityTab = await $('.navbar__items > a:nth-of-type(6)');
+    await elem_communityTab.click();
+    console.log('>>> Community tab clicked')
+});
+ 
+When(/^I click on the YouTube icon$/, async function() {
+    let elem_youTubeIcon = await $('.header-youtube-link.navbar__item.navbar__link');
+    await elem_youTubeIcon.click();
+    console.log('>>> YouTube icon clicked');
+});
+ 
+Then(/^I am on the official WebDriverIO YouTube channel$/, async function() {
+    console.log('>>> Expected YouTube URL: https://www.youtube.com/@webdriverio');
+    await browser.switchWindow('youtube.com')
+    await browser.pause(3000);
+    await expect(browser).toHaveUrl('https://www.youtube.com/@webdriverio');
+});
+ 
+ 
