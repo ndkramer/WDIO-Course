@@ -60,5 +60,6 @@ Then (/^user should receive popup with (.*)$/, async function(message) {
     await expect(alert_text).toEqual(message);
     console.log('>>> alert_text: ',alert_text);
     await browser.pause(1000);
+    await browser.acceptAlert(); // This line clicks the 'ok' button in the alert.
 
 });
