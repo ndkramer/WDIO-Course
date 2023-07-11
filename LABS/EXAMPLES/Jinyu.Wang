@@ -1,0 +1,43 @@
+Features: webdriver_youtube.feature
+
+Feature: Test to make sure the youtube channel from WebDriver community opens correctly
+
+  Scenario Outline: Can we open WebDriver
+
+    Given I am on the WebDriver home page
+    When I click on Community tab
+    When I click on the youtube channel icon menu
+    Then I should be taken to <expectedUrl> 
+
+    Examples: 
+      | Test ID | expectedUrl                          |
+      | 1       | https://www.youtube.com/@webdriverio |
+
+
+Steps: 
+
+Given(/^I am on the WebDriver home page$/, async function() {
+    await browser.url("https://webdriver.io/");
+    console.log('>>> WebDriver is open');
+    await browser.maximizeWindow()
+    await browser.pause(3000);
+});
+
+When(/^I click on Community tab$/, async function() {
+    console.log('>>> click Community tab');
+    let elem_community = await $('.navbar__items > a:nth-of-type(6)');
+    await elem_community.click();
+});
+
+When(/^I click on the youtube channel icon menu$/, async function() {
+    console.log('>>> click youtube channel icon menu');
+    let elem_community = await $('.header-youtube-link.navbar__item.navbar__link');
+    await elem_community.click();
+    await browser.switchWindow('youtube.com');
+    await browser.pause(3000);
+});
+
+Then(/^I should be taken to (.*)$/, async function(expectedUrl) {
+    console.log('>>> expectedUrl =: ', expectedUrl);
+    await expect(browser).toHaveUrl(expectedUrl);
+});
