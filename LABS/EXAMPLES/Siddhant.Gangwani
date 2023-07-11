@@ -1,0 +1,51 @@
+Feature File:
+Feature: Test to make sure WebDriverIO YouTube Channel Can be Opened
+@demo
+ 
+  Scenario Outline: Can we open WebDriverIO YouTube Channel
+ 
+   Given I am on the WebDriverIO Website
+   When I click Community Tab
+   When I click YouTube
+   Then I should be taken to <expectedUrl>  
+ 
+   Examples:
+      | Test ID | expectedUrl                          |
+      | 1       | https://www.youtube.com/@webdriverio |
+ 
+
+Step File:
+import { Given, Then, When } from "@wdio/cucumber-framework";
+ 
+Given(/^I am on the WebDriverIO Website$/, async function() {
+    await browser.url(https://webdriver.io/);
+    console.log('>>> WebDriverIO is Open');
+    await browser.pause(3000);
+});
+ 
+When(/^I click Community Tab$/,async function() {
+    await browser.maximizeWindow()
+    let ele = await $('a:nth-of-type(6)');
+    ele.click();
+    console.log('>>> Community Tab is Open');
+    await browser.pause(3000);
+});
+ 
+When(/^I click YouTube$/,async function() {
+    let ele = await $('.header-youtube-link.navbar__item.navbar__link');
+    ele.click();
+    console.log('>>> YouTube is Open');
+    await browser.pause(3000);
+});
+ 
+Then(/^I should be taken to (.*)$/, async function (expectedURL24) {
+    await browser.switchWindow('https://www.youtube.com/@webdriverio')
+    console.log('>> expectedURL:',expectedURL24);
+    await expect(browser).toHaveUrl(expectedURL24);
+});
+ 
+ 
+Thanks and Regards
+Siddhant Gangwani
+ 
+image001.png
