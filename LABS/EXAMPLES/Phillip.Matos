@@ -1,0 +1,65 @@
+For reasons I’m still working out, when I run without opening the chrome browser and watching it run the steps it marks as fail but if I watch it marks as success
+ 
+Feature File:
+Feature: Test to make sure you can reach the webdriver youtube channel from their webpage
+ 
+    @demo
+    Scenario Outline: Can we go from webdriver to its youtube channel
+ 
+        Given I am on <startingWebpage>
+        When I click on the Community button
+        When I click on the youtube link
+        Then A new tab should open, taking me to <expectedUrl>
+ 
+        Examples:
+            | Test ID | startingWebpage       | expectedUrl                          |
+            | 1       | https://webdriver.io/ | https://www.youtube.com/@webdriverio |
+ 
+Steps File:
+import { Given, When, Then } from "@wdio/cucumber-framework";
+Given(/^I am on the google search page$/, async function()  {
+    await browser.url(https://google.com);
+   console.log(">>> Google is open");
+    await browser.pause(2000)
+ 
+   
+});
+ 
+When(/^I search for (.*)$/, async function(searchItem) {
+    console.log(">>> searchItem =: ", searchItem);
+    let elem_search = await $('[name=q]');
+    await elem_search.setValue(searchItem)
+    await browser.keys("Enter")
+});
+ 
+When(/^I click on the first result$/, async function() {
+    let elem_firstResult = await $('<h3>');
+    await elem_firstResult.click();
+});
+ 
+Then(/^I should be taken to (.*)$/, async function(expectedUrl) {
+    console.log(">>> expectedUrl =: ", expectedUrl)
+    await expect(browser).toHaveUrl(expectedUrl)
+});
+ 
+Given(/^I am on (.*)$/, async function(startingWebpage)  {
+    await browser.url(startingWebpage);
+    console.log(">>> Starting webpage is =:", startingWebpage);
+    await browser.pause(2000)
+});
+ 
+When(/^I click on the Community button$/, async function() {
+    let elem_nav = await $('.navbar__items > a:nth-of-type(6)');
+    await elem_nav.click();
+});
+ 
+When(/^I click on the youtube link$/, async function() {
+    let elem_nav = await $('.header-youtube-link.navbar__item.navbar__link');
+    await elem_nav.click();
+});
+ 
+Then(/^A new tab should open, taking me to (.*)$/, async function(expectedUrl) {
+    console.log(">>> expectedUrl =: ", expectedUrl)
+    await browser.switchWindow(expectedUrl)
+    await expect(browser).toHaveUrl(expectedUrl)
+});
