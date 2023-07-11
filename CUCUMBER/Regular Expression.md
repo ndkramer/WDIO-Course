@@ -1,4 +1,4 @@
-**Regualar Expression Application:**  https://regex101.com/
+**Regular Expression Tool:**  https://regex101.com/
 
 
 
