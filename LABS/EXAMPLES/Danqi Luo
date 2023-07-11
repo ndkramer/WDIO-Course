@@ -1,0 +1,40 @@
+Feature:
+ 
+Feature: Validate that the user can go to https://webdriver.io/ Once on that page they should be able to go to the community tab On the commubity tab they should be able to go to the youtube channel Verify that the yourtube channel is the official channel for WebDriverIO
+ 
+@youtube
+  Scenario Outline: Webdriver Youtube
+ 
+    Given I am on the WebDriverIO page
+    When I click on community tab
+    When I click on the youtube icon
+    Then I should be sent to <expectedUrl>
+ 
+    Examples:
+        | Test ID | expectedUrl                         |
+        | 3       | https://www.youtube.com/@webdriverio |
+ 
+Steps:
+ 
+Given(/^I am on the WebDriverIO page$/, async function() {
+    await browser.url("https://webdriver.io/");
+    console.log('>>> webdriverio is open');
+});
+ 
+When(/^I click on community tab$/, async function(){
+    let element_community = await $('.navbar__items > a:nth-of-type(6)');
+    await element_community.click();
+});
+ 
+When(/^I click on the youtube icon$/, async function(){
+    let element_youtube = await $('.header-youtube-link.navbar__item.navbar__link');
+    await element_youtube.click();
+    await browser.pause(2000);
+});
+ 
+Then(/^I should be sent to (.*)$/, async function(expected) {
+    console.log('>>>expectedUrl =', expected);
+    await browser.switchWindow('youtube.com');
+    await expect(browser).toHaveUrl(expected);
+});
+ 
