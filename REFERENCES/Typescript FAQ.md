@@ -11,6 +11,12 @@ You can write multiple lines of comments here
 
 */
 
+
+Note:
+For VSCode you can also select the lines you want to comment and press
+Ctrl + /
+
+
 **1) Here are some key differences between TypeScript and JavaScript:
 TypeScript is a superset of JavaScript, which means that it extends the capabilities of JavaScript by adding optional static typing and other features. TypeScript was developed by Microsoft to improve the development experience for large-scale applications and to provide better tooling and error checking.**
 
