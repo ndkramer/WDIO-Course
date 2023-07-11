@@ -1,0 +1,74 @@
+Step File:
+import { Given, Then, When } from "@wdio/cucumber-framework";
+ 
+Given(/^I am on the WebDriverIO Website$/, async function() {
+    await browser.url(https://webdriver.io/);
+    console.log('>>> WebDriverIO is Open');
+    await browser.pause(3000);
+});
+ 
+When(/^I click Community Tab$/,async function() {
+    await browser.maximizeWindow()
+    let ele = await $('.navbar__items > a:nth-of-type(6)');
+    await ele.click();
+    console.log('>>> Community Tab is Open');
+    await browser.pause(8000);
+});
+ 
+When(/^Clicking the (.*)$/, async function(buttonToClick) {
+    let eleButton = await $(buttonToClick);
+    await eleButton.click();
+    console.log('>>> Button is Clicked',buttonToClick);
+    await browser.pause(2000);
+});
+ 
+Then(/^I should be taken to (.*)$/, async function (expectedURL24) {
+    await browser.switchWindow(expectedURL24)
+    console.log('>> expectedURL:',expectedURL24);
+    await browser.pause(3000);
+    await expect(browser).toHaveUrl(expectedURL24);
+    if (expectedURL24=='https://discord.com/invite/H4v23gQvkm') {
+        let eleUsername=await $('input[name=\'username\']')
+        await expect(eleUsername).toBeDisplayed()  
+    }
+});
+ 
+
+
+Feature File:
+
+import { Given, Then, When } from "@wdio/cucumber-framework";
+ 
+Given(/^I am on the WebDriverIO Website$/, async function() {
+    await browser.url(https://webdriver.io/);
+    console.log('>>> WebDriverIO is Open');
+    await browser.pause(3000);
+});
+ 
+When(/^I click Community Tab$/,async function() {
+    await browser.maximizeWindow()
+    let ele = await $('.navbar__items > a:nth-of-type(6)');
+    await ele.click();
+    console.log('>>> Community Tab is Open');
+    await browser.pause(8000);
+});
+ 
+When(/^Clicking the (.*)$/, async function(buttonToClick) {
+    let eleButton = await $(buttonToClick);
+    await eleButton.click();
+    console.log('>>> Button is Clicked',buttonToClick);
+    await browser.pause(2000);
+});
+ 
+Then(/^I should be taken to (.*)$/, async function (expectedURL24) {
+    await browser.switchWindow(expectedURL24)
+    console.log('>> expectedURL:',expectedURL24);
+    await browser.pause(3000);
+    await expect(browser).toHaveUrl(expectedURL24);
+    if (expectedURL24=='https://discord.com/invite/H4v23gQvkm') {
+        let eleUsername=await $('input[name=\'username\']')
+        await expect(eleUsername).toBeDisplayed()  
+    }
+});
+ 
+ 
