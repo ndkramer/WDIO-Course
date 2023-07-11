@@ -1,0 +1,77 @@
+Webdriver_youTube.feature
+ 
+Feature: Test for the WebDriver YouTube links
+ 
+ 
+  Scenario Outline: Can we find the WebDriver YouTube page
+ 
+   Given I am on the WebDriver site
+   When I click on the Community link
+   When I click on the YouTube link
+   Then I am taken to the official WebDriver YouTube channel
+ 
+ 
+ 
+Steps.ts:
+ 
+Given(/^I am on the google search page$/, async function () {
+    await browser.url(https://google.com)
+    console.log('>>>>Google is open');
+    await browser.pause(3000);
+});
+ 
+When(/^I search for (.*)$/, async function (searchItem) {
+    console.log('>>> searchItem =:', searchItem);
+    let elem_search = await $('[name=q]');
+    await elem_search.setValue(searchItem);
+    await browser.keys("Enter");
+});
+ 
+When(/^I click on the first result$/, async function() {
+    let elem_firstResult = await $('<h3>');
+    //await browser.pause(1000);
+    await elem_firstResult.click();
+});
+ 
+Then(/^I should be taken to (.*)$/, async function(expectedUrl121) {
+    console.log('>>>expectedUrl121 = ', expectedUrl121);
+    await expect(browser).toHaveUrl(expectedUrl121);
+});
+ 
+Given(/^I am on the WebDriver site$/, async function () {
+    await browser.url(https://webdriver.io);
+    await browser.maximizeWindow();
+    console.log('>>>Opened WebDriver site');
+   // await browser.pause(2000);
+});
+ 
+When(/^I click on the Community link$/, async function () {
+    let elem_commLink = await $('.navbar__items > a:nth-of-type(6)')
+    await elem_commLink.click();
+    //await browser.pause(3000);
+   
+})
+ 
+When (/^I click on the YouTube link$/, async function() {
+    let elem_youtube = await $('.header-youtube-link.navbar__item.navbar__link');
+    await elem_youtube.click();
+    //await browser.pause(3000);
+});
+ 
+Then (/^I am taken to the official WebDriver YouTube channel$/, async function(){
+    await browser.switchWindow("youtube.com");
+    let target = await (browser).getUrl();
+    console.log('>>> found URL:', target);
+    await expect(browser).toHaveUrl(https://www.youtube.com/@webdriverio)
+   
+})
+ 
+To keep from running the original tests, update wdio.conf.ts:
+ 
+    specs: [
+        './features/**/*.feature'
+    ],
+    // Patterns to exclude.
+    exclude: [
+        // 'path/to/excluded/files'
+        './features/**/feature.feature'
