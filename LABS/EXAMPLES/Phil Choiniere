@@ -1,0 +1,121 @@
+Feature:
+ 
+Feature: Validate youtube access from webdriverio community tab
+# Validate that the user can go to https://webdriver.io/
+# Once on that page they should be able to go to the community tab
+# On the commubity tab they should be able to go to the youtube channel
+# Verify that the youtube channel is the official channel for WebDriverIO
+ 
+    @demo
+    Scenario: Validate community tab takes user to the community page
+ 
+        Given I am on the webdriverio home page
+        When I go to the <tabName> tab
+        Then I am taken to the <expectedURL> page
+ 
+        Examples:
+            | Test ID | tabName   | expectedURL                            |
+            | 1       | Community | https://webdriver.io/community/support |
+ 
+    @demo
+    Scenario: Validate youtube access from community page
+        When I go to the <buttonName> button
+        Then I am taken to the <expectedURL> page
+ 
+        Examples:
+            | Test ID | buttonName | expectedURL                          |
+            | 1       | Youtube    | https://www.youtube.com/@webdriverio |
+ 
+ 
+ 
+Steps:
+ 
+import { Given, When, Then } from "@wdio/cucumber-framework";
+ 
+// Basic gherkin syntax for keywords
+// Given(/^ENTER TEXT HERE$/, async function() {
+    //// ADD STUFF
+// })
+ 
+Given(/^I am on the google search page$/, async function() {
+ 
+    await browser.url("https://google.com");
+    console.log('>>> Google is open');
+    await browser.pause(3000);
+ 
+});
+ 
+When(/^I search for (.*)$/, async function(searchItem) {
+ 
+    console.log('>>> searchItem = ', searchItem);
+   
+    // Find element on the screen where the field, name, equals q and set it to elem_search
+    let elem_search = await $('[name=q]');
+ 
+    // Set value of element on screen to parameter value then click enter button
+    await elem_search.setValue(searchItem);
+    await browser.keys("Enter");
+ 
+});
+ 
+When(/^I click on the first result$/, async function() {
+   
+    // Find first element with an h3 tag and asign it to the variable
+    let elem_firstResult = await $('<h3>');
+    await elem_firstResult.click();
+ 
+});
+ 
+Then(/^I should be taken to (.*)$/, async function(expectedURL) {
+ 
+    console.log('>>> expectedURL = ', expectedURL);
+    await expect(browser).toHaveUrl(expectedURL);
+ 
+});
+ 
+ 
+Given(/^I am on the webdriverio home page$/, async function() {
+ 
+    await browser.url("https://webdriver.io/");
+    console.log('>>> webdriverio is open');
+    await browser.maximizeWindow()
+    await browser.pause(3000);
+ 
+});
+ 
+When(/^I go to the (.*) tab$/, async function(tabName) {
+   
+    switch(tabName) {
+        case 'Community':
+            let elem_tabName = await $('.navbar__items > a:nth-of-type(6)');
+            await elem_tabName.click();
+            break;
+    }
+ 
+ 
+});
+ 
+Then(/^I am taken to the (.*) page$/, async function(expectedURL) {
+ 
+    console.log('>>> expectedURL = ', expectedURL);
+    await browser.switchWindow(expectedURL)
+    await browser.pause(1000);
+    await expect(browser).toHaveUrl(expectedURL);
+ 
+});
+ 
+When(/^I go to the (.*) button$/, async function(buttonName) {
+ 
+    switch(buttonName) {
+        case 'Youtube':
+            let elem_buttonName = await $('.header-youtube-link.navbar__item.navbar__link');
+            await elem_buttonName.click();
+            break;
+    }
+ 
+});
+ 
+ 
+ 
+ 
+ 
