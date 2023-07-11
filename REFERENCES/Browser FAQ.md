@@ -1,4 +1,6 @@
-Supporting Characters: https://w3c.github.io/webdriver/#keyboard-actions
+Browser Doc:
+https://webdriver.io/docs/api/browser/
+
 
 
 Here are some of the most commonly used browser functions in WebdriverIO:
