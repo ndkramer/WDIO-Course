@@ -1,0 +1,26 @@
+Feature: To test if social media buttons work from community tab
+
+  @demo
+  Scenario Outline: Can we go to the Community Tab
+    Given I am on the Google search page
+    When I go to the website <website>
+    When I go to the <tabName> tab
+
+    Examples:
+      | Test ID | website               | tabName     |
+      | 1       | https://webdriver.io/ | Community |
+
+  @demo
+  Scenario Outline: Checking social media
+    When I click on the <social_media> button
+    Then I see the website is <expectedUrl>
+
+    Examples:
+      | Test ID | social_media | expectedUrl                                                          |
+      | 1       | Youtube      | https://www.youtube.com/@webdriverio                                 |
+      | 2       | Github       | https://github.com/webdriverio/webdriverio                           |
+      | 3       | Twitter      | https://twitter.com/i/flow/login?redirect_after_login=%2Fwebdriverio |
+      | 4       | Discord      | https://discord.com/invite/H4v23gQvkm                                |
+
+
+
