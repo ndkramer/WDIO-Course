@@ -1,0 +1,27 @@
+Webdriver-youtube.featute:
+Feature: Test make sure we can go to the webdriver youtube page
+@demo
+  Scenario Outline: Go to the webdriver youtube page
+ 
+    Given I am on the Google search page
+    When Enter in search field <searchItem>
+    When I click on first result
+    When I select Community
+    When I select button icon <button>
+    Then Expected page presents <expectedUrl> window <window>
+ 
+    Examples:
+      | Test ID | searchItem  | button                                         | expectedUrl                                                          | window  |
+      | 1       | webdriverio | .header-youtube-link.navbar__item.navbar__link | https://www.youtube.com/@webdriverio                                 | youtube |
+      | 2       | webdriverio | .header-github-link.navbar__item.navbar__link  | https://github.com/webdriverio/webdriverio                           | github  |
+      | 3       | webdriverio | .header-twitter-link.navbar__item.navbar__link | https://twitter.com/i/flow/login?redirect_after_login=%2Fwebdriverio | twitter |
+      | 4       | webdriverio | .header-discord-link.navbar__item.navbar__link | https://discord.com/invite/H4v23gQvkm                                | discord |
+ 
+   
+Step:
+Then(/^Expected page presents (.*) window (.*)$/, async function (expectedUrl22, window) {
+     console.log('>>>expectedUrl22 - ', expectedUrl22);
+     //let elem_window = await $(window)
+     await browser.switchWindow(window);
+     await expect(browser).toHaveUrl(expectedUrl22);
+});
