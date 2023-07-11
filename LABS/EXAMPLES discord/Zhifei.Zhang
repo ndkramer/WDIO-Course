@@ -1,0 +1,75 @@
+Feature:
+ 
+Feature: 1
+ 
+  @demo
+  Scenario Outline: 1
+ 
+   Given I am on the webdriver site
+   When Click on the Community Tab
+   When Click on the <button> Channel
+   Then I should be directed to <expectedUrl>
+ 
+   Examples:
+   | Test ID | expectedUrl | button |
+   | 1 | https://www.youtube.com/@webdriverio | .header-youtube-link.navbar__item.navbar__link |
+   | 2 | https://discord.com/invite/H4v23gQvkm | .header-discord-link.navbar__item.navbar__link |
+   | 3 | https://github.com/webdriverio/webdriverio | .header-github-link.navbar__item.navbar__link |
+   | 4 | https://twitter.com/i/flow/login?redirect_after_login=%2Fwebdriverio | .header-twitter-link.navbar__item.navbar__link |
+ 
+ 
+Steps:
+ 
+import { Given, Then, When } from "@wdio/cucumber-framework";
+ 
+Given(/^I am on the google search page$/, async function() {
+    await browser.url(https://google.com);
+    console.log(">>> Google is open");
+    await browser.pause(2000);
+});
+ 
+When(/^Search for (.*)$/, async function(searchItem) {
+    console.log(">>> searchItem =: ", searchItem);
+    let elem_search = await $('[name=q]');
+    await elem_search.setValue(searchItem);
+    await browser.keys("Enter");
+});
+ 
+When(/^Click on the first search result$/, async function() {
+    let elem_firstResult = await $('<h3>');
+    await elem_firstResult.click();
+ 
+});
+ 
+Then(/^I should be redirected to (.*)$/, async function (expectedUrl121) {
+   console.log(">>>expecteUrl = ", expectedUrl121);
+   await expect(browser).toHaveUrl(expectedUrl121);
+});
+ 
+Given(/^I am on the webdriver site$/, async function() {
+    await browser.url(https://webdriver.io/);
+    console.log(">>> WebdriverIO is open");
+    await browser.pause(2000);
+});
+ 
+When(/^Click on the Community Tab$/, async function() {
+    let elem_firstResult = await $('[href="/community/support"]');
+    await elem_firstResult.click();
+});
+ 
+When(/^Click on the (.*) Channel$/, async function(button) {
+    console.log(">>> Looking for button: ", button);
+    let elem_firstResult = await $(button);
+    await elem_firstResult.click();
+});
+ 
+Then(/^I should be directed to (.*)$/, async function (expectedUrl121) {
+    console.log(">>>expecteUrl = ", expectedUrl121);
+    await browser.switchWindow(expectedUrl121);
+    await expect(browser).toHaveUrl(expectedUrl121);
+    if (expectedUrl121.includes("discord")) {
+        let elem_username = await $("input[name='username']");
+        // let res = elem_username.isDisplayed();
+        expect(elem_username).toBeDisplayed;
+    }
+});
