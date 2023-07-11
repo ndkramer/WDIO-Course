@@ -1,0 +1,89 @@
+
+Feature: Test to make sure Chrome and Google search are working correctly
+
+  Scenario Outline: Can we open google
+
+Given I am on the google page
+   When I Search WDIO
+   When I click on the second result
+   Then I should be taken to
+
+import { Given, Then, When } from "@wdio/cucumber-framework";
+
+Given(/^I am on the google search page$/, async function() {
+    await browser.url("https://google.com");
+    console.log('>>> Google is open');
+    await browser.pause(3000);
+});
+
+When(/^I Search for (.*)$/, async function(searchItem) {
+    console.log('>>> searchItem =:',searchItem);
+    let elem_search = await $('[name=q]');
+    await elem_search.setValue(searchItem);
+    await browser.keys("Enter");
+
+});
+
+When(/^I click on the first result$/, async function() {
+    let elem_firstResult = await $('<h3>');
+    await elem_firstResult.click();
+});
+
+Then(/^I should be taken to (.*)$/, async function(expectedUrl21) {
+    console.log('>>>expectedUrl21 =',expectedUrl21);
+    await expect(browser).toHaveUrl(expectedUrl21);
+
+});
+
+Given('I am on the google page', async () => {
+    await browser.url('https://www.google.com');
+});
+
+When('I Search WDIO', async () => {
+    const input = await $('[name=q]');
+    await input.setValue('WDIO');
+    await browser.keys('Enter');
+});
+
+When('I click on the second result', async () => {
+    await browser.waitUntil(
+        async () => {
+            const elements = await $$('div.g');
+            return elements.length >= 3;
+        },
+        {
+            timeout:10000,
+            timeoutMsg: 'expected at least 2 results to be found after 10s'
+        }
+    );
+    const results = await $$('div.g');
+    await results[1].scrollIntoView();
+    await browser.waitUntil(
+        async () => {
+            return results[2].isClickable();
+        },
+        {
+            timeout: 10000,
+            timeoutMsg: 'expected the second result to be clickable after 10s'
+        }
+    );
+    await results[2].click();
+});
+/*
+This is a block comment in TypeScript
+You can write multiple lines of comments here
+1. When('I click on the second result', async () => {...}); - This line defines a step in your Cucumber test. When the test encounters the phrase "I click on the second result", it will execute the code inside this function.
+2. await browser.waitUntil(async () => {...}, {timeout:10000, timeoutMsg: 'expected at least 2 results to be found after 10s'}); - This line tells the browser to wait until a certain condition is met. The condition is defined in the function passed as the first argument to waitUntil. The browser will check this condition every 500ms (by default), and if the condition isn't met within 10 seconds (timeout:10000), it will throw an error with the message 'expected at least 2 results to be found after 5s' (timeoutMsg).
+3. const elements = await $$('div.g'); return elements.length >= 3; - This is the condition that waitUntil is checking. It uses the $$ command to find all div.g elements on the page, and checks if there are at least 3 of them. If there are, the condition is met and waitUntil stops waiting.
+4. const results = await $$('div.g'); - This line finds all div elements with class g on the page and stores them in the results variable.
+5. await results[1].scrollIntoView(); - This line scrolls the page until the second element in the results array (remember, arrays are 0-indexed, so results[1] is the second element) is visible.
+6. await browser.waitUntil(async () => {...}, {timeout: 10000, timeoutMsg: 'expected the second result to be clickable after 10s'}); - This is another waitUntil command, similar to the one above. This time, it's waiting until the third result is clickable.
+7. return results[2].isClickable(); - This is the condition for the second waitUntil command. It checks if the third result is clickable. If it is, the condition is met and waitUntil stops waiting.
+8. await results[2].click(); - Finally, this line clicks on the third result.
+So, in summary, this code waits until there are at least 3 div.g elements on the page, then finds all div elements with class g, scrolls to the second one, waits until the third one is clickable, and then clicks on it.
+*/
+
+Then('I should be taken to', async() => {
+   let expectedUrl = 'https://webdriver.io/'
+    await expect(browser).toHaveUrl(expectedUrl);
+});
