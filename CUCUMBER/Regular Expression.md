@@ -31,7 +31,7 @@
 16. **a{3}** - Matches exactly 3 consecutive 'a' characters
 17. **a{3,}** - Matches 3 or more consecutive 'a' characters
 18. **a{3,6}** - Matches between 3 and 6 'a' characters
-19. ( \ ) -  In regular expressions, the vertical bar or pipe symbol "|" is used to denote a logical OR. This means that the pattern will match if either the expression before or after the "|" is present.
+19. ( | ) -  In regular expressions, the vertical bar or pipe symbol "|" is used to denote a logical OR. This means that the pattern will match if either the expression before or after the "|" is present.
 For example, in the regular expression "(apple|orange)", the pattern will match either "apple" or "orange".
 
 21. ? - In regular expressions, the "?" character has a special meaning. It makes the preceding element optional. This means that the pattern will match whether or not that element is present. For example, the regular expression "colou?r" would match both "color" and "colour".
