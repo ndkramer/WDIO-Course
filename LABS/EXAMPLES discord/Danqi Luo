@@ -1,0 +1,57 @@
+I made some changes to previous steps functions.
+ 
+Feature:
+Feature: Validate that the user can go to https://webdriver.io/ Once on that page they should be able to go to the community tab On the commubity tab they should be able to go to the youtube channel Verify that the yourtube channel is the official channel for WebDriverIO
+ 
+@youtube
+  Scenario Outline: Webdriver Youtube
+ 
+    Given I am on the WebDriverIO page
+    When I click on <tab>
+    When I click on <button>
+    Then I should be sent to <expectedUrl>
+ 
+    Examples:
+        | Test ID | expectedUrl                         | tab | button |
+        | 1       | https://www.youtube.com/@webdriverio | .navbar__items > a:nth-of-type(6) | .header-youtube-link.navbar__item.navbar__link |
+        | 2       | https://github.com/webdriverio/webdriverio/blob/main/CODE_OF_CONDUCT.md | .navbar__inner .navbar__items:nth-of-type(1) .navbar__link:nth-child(6) | .markdown.theme-doc-markdown > p:nth-of-type(2) > a[target='_blank'] |
+        | 3       | https://twitter.com/i/flow/login?redirect_after_login=%2Fwebdriverio | .navbar__items > a:nth-of-type(6) | .header-twitter-link.navbar__item.navbar__link |
+@youtube
+  Scenario Outline: Discord check
+ 
+    Given I am on the WebDriverIO page
+    When I click on <tab>
+    When I click on <button>
+    Then Check <expectedUrl> and <check_exist> exists
+ 
+    Examples:
+        | Test ID | expectedUrl                         | tab | button | check_exist |
+        | 1       | https://discord.com/invite/H4v23gQvkm | .navbar__inner .navbar__items:nth-of-type(1) .navbar__link:nth-child(6) | p:nth-of-type(3) > a[target='_blank'] |  input[name='username'] |
+ 
+Steps:
+Given(/^I am on the WebDriverIO page$/, async function() {
+    await browser.url("https://webdriver.io/");
+    console.log('>>> webdriverio is open');
+});
+ 
+When(/^I click on (.*)$/, async function(input_css){
+    let element_click = await $(input_css);
+    await element_click.click();
+});
+ 
+Then(/^I should be sent to (.*)$/, async function(expected) {
+    console.log('>>>expectedUrl =', expected);
+    await browser.switchWindow(expected);
+    await expect(browser).toHaveUrl(expected);
+});
+ 
+Then(/^Check (.*) and (.*) exists$/, async function(expected, check_exist) {
+    console.log('>>>expectedUrl =', expected);
+    await browser.switchWindow(expected);
+    await expect(browser).toHaveUrl(expected);
+    let element_exist = await $(check_exist);
+    await expect(element_exist).toExist();
+});
+ 
+ 
+
