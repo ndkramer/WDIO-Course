@@ -27,6 +27,7 @@ Here are some of the most commonly used browser functions in WebdriverIO:
 23. browser.isDisplayed(): Checks if an element is displayed.
 24. browser.isEnabled(): Checks if an element is enabled.
 25. browser.setValue(): Sets a value to an input field.
+26. browser.maximizeWindow(): Set the browser window to full screen
 Remember, each of these functions may require specific parameters depending on what you're trying to achieve. Always refer to the official WebdriverIO documentation for detailed usage instructions.
 
 Supporting Characters: https://w3c.github.io/webdriver/#keyboard-actions
