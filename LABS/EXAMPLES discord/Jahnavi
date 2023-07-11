@@ -1,0 +1,113 @@
+Hey Nick,
+ 
+Attaching my activity code below
+ 
+Feature:
+ 
+@demo
+Feature: Tests to verify the youtube channel of webdriverio website
+ 
+    Scenario Outline: Can open the official youtube channel of webdriverio
+ 
+        Given I am on the webdriverio webpage
+        When I click the <tab> tab
+        And I click the <icon> icon from the menu on the right
+        Then I should be in the official channel for WebDriverIO
+ 
+        Examples:
+            | Test ID | tab        | icon    |
+            | 1       | Community  | youtube |
+            | 2       | Contribute | youtube |
+            | 3       | Blog       | youtube |
+ 
+    Scenario Outline: Can view the discord page
+ 
+        Given I am on the webdriverio webpage
+        When I click the <tab> tab
+        And I click the <icon> icon from the menu on the right
+        Then The discord page opens up
+        Then the field <fieldname> is visible
+ 
+        Examples:
+            | Test ID | tab        | icon    | fieldname |
+            | 1       | Contribute | discord | username  |
+            | 2       | Community  | discord | username  |
+ 
+Step file:
+ 
+import { Given, Then, When } from "@wdio/cucumber-framework";
+ 
+Given(/^I am on the google search page$/, async function() {
+    await browser.url(https://google.com);
+    console.log('>>> Google is open');
+    await browser.pause(2000);
+});
+ 
+When(/^I search for (.*)$/, async function(searchItem: string) {
+    console.log('>>> searchItem =:',searchItem,'Inside the search When statement');
+    let element_search = await $(`[name=q]`);
+    await element_search.setValue(searchItem);
+    await browser.keys("Enter");
+});
+ 
+When(/^I click on the first search result$/, async function() {
+    console.log('>>> Inside the click When statement');
+    let element_firstResult = await $('<h3>');
+    element_firstResult.click();
+})
+ 
+Then(/^I should be directed to (.*)$/,async function(expectedURL) {
+    console.log('>>> expectedURL =:', expectedURL)
+    await expect(browser).toHaveUrl(expectedURL)
+})
+ 
+Given(/^I am on the webdriverio webpage$/, async function() {
+    await browser.url(https://webdriver.io);
+    await browser.maximizeWindow()
+    console.log('>>> WebDriverIO is open');
+    await browser.pause(2000);
+});
+ 
+When(/^I click the (.*) tab$/, async function(tab: string) {
+    console.log('>>> tab =:',tab);
+    const LocatorMap = {
+        "Docs": 2,
+        "API": 3,
+        "Blog": 4,
+        "Contribute": 5,
+        "Community": 6
+    }
+    let element_tab = await $(`.navbar__items > a:nth-of-type(${LocatorMap[tab]})`);
+    element_tab.click();
+});
+ 
+When(/^I click the (github|youtube|discord|twitter) icon from the menu on the right$/, async function(icon: string) {
+    console.log('>>> icon =:',icon);
+    let element_icon = await $(`.header-${icon}-link.navbar__item.navbar__link`);
+    element_icon.click();
+});
+ 
+Then(/^I should be in the official channel for WebDriverIO$/,async function() {
+    await browser.switchWindow("youtube.com")
+    const expectedURL = https://www.youtube.com/@webdriverio
+    await expect(browser).toHaveUrl(expectedURL);
+})
+ 
+Then(/^The discord page opens up$/, async function() {
+    await browser.switchWindow("Discord")
+    const expectedURL = https://discord.com/invite/H4v23gQvkm
+    await expect(browser).toHaveUrl(expectedURL);
+})
+ 
+Then(/^the field (.*) is visible$/, async function(fieldname) {
+    let element_username = await $(`input[name=\'${fieldname}\']`);
+    await expect(element_username).toBeDisplayed()
+})
+ 
+Package.json:
+ 
+"scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "wdio": "wdio run ./wdio.conf.ts",
+    "demo": "wdio run ./wdio.conf.ts --cucumberOpts.tagExpression='@demo'"
+  },
