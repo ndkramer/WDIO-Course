@@ -2,6 +2,7 @@
 
 
 To run your tests: **npm run wdio**
+To clear the terminal and run wdio again: **clear ; npm run wdio**
 
 
 ## **Content for WebdriverIO course**
