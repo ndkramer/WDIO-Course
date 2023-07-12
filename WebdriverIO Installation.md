@@ -22,7 +22,24 @@
 12) Run npm init to build project:
     
    **npm init wdio .**
- 
+
+    Y
+    E2E
+    on local machine
+    web - in the browser
+    chrome or (a to toggle all)
+    Cucumber
+    Typescript
+    Auto Generate File (Y)
+    enter
+    enter
+    Y (for pages objects)
+    Allure
+    wait for (a or all)
+    drivers (needs to match before)
+    base url -enter
+    NPM install = Y
+    
 14) Install the following extensions
     Surround with
     Prettier
