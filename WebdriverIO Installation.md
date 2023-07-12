@@ -16,6 +16,9 @@
 10) Run Wdio init:
     
     npm init -y
+
+    You should see a package.json folder appear in the upper left.
+    
 12) Run npm init to build project:
     
    npm init wdio .
