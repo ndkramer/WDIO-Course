@@ -79,10 +79,10 @@ capabilities: [
           headless == "Y"
             ? [
                 "--disable-web-security",
-                 "--headless','--window-size=1280,800'",
+                 "--headless",
                 "--disable-dev-shm-usage",
                 "--no-sandbox",
-               // "--window-size-1920,1080",
+               "--window-size=1920,1080",
               ]
             : [],
       },
