@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "wdio": "cross-env HEADLESS=N  wdio run ./wdio.conf.ts",
-    "demo": "cross-env HEADLESS=Y  wdio run ./wdio.conf.ts --cucumberOpts.tagExpression='@demo'",
+    "wdio": "cross-env HEADLESS=Y  wdio run ./wdio.conf.ts",
+    "demo": "cross-env HEADLESS=N  wdio run ./wdio.conf.ts --cucumberOpts.tagExpression='@demo'",
     "_comment1": "validate that wdio.conf.ts does not have a value in --cucumberOpts.tagExpression",
     "_comment2": "you may need to run this script thie frist time you run headless to set up cross-env dep: npm install --save-dev cross-env"
   },
