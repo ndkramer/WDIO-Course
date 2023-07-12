@@ -11,7 +11,7 @@
 5) Download\Install vsCode
    https://code.visualstudio.com/download
 6) Create a folder on your system where you would like install the WDIO Project
-8) Open vsCode and open the folder in step 8
+8) Open vsCode and open the folder in step 6
 9) Open vsCode Terminal
 10) Run Wdio init
     npm init -y
