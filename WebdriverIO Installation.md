@@ -16,9 +16,10 @@
 10) Run Wdio init:
     
     npm init -y
-12) Run npm init to build project
+12) Run npm init to build project:
+    
    npm init wdio .
-13) Install the following exentions
+14) Install the following extensions
     Surround with
     Prettier
     vscode - icons
