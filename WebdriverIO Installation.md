@@ -42,15 +42,19 @@
     
 14) Install the following extensions
     Surround with
+    
     Prettier
     vscode - icons
     path intellisense
     npm intellisense
     JavaScript (ES6)
     Cucumber (Given, When, Then)
+    Cucumber
     CodeRunner   (.run)
-    gitimore
-    Dotenv
+    gitignore
+    Dotenv official
+    Cuke Step Definition Generator
+    
 
 
 Additional Resourse:
