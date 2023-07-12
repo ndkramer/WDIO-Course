@@ -2,7 +2,7 @@
 
 We are running a test automation framework that could be considered "all of the above". Here's a breakdown:
 
-1. **Node.js**: This is a JavaScript runtime built on Chrome's V8 JavaScript engine. It's likely being used to run your application.
+1. **Node.js**: This is a JavaScript runtime built on Chrome's V8 JavaScript engine. Node.js used to run your application.
 
 2. **Cucumber**: This is a tool for running automated tests written in plain language. Because it's based on Behavior Driven Development (BDD) principles, the tests are often written to describe how the software should behave.
 
@@ -10,9 +10,9 @@ We are running a test automation framework that could be considered "all of the 
 
 4. **TypeScript**: This is a superset of JavaScript that adds static types. It's designed to help catch mistakes early through a type checker and to make JavaScript development more efficient.
 
-5. **Regular Expressions**: These are sequences of characters that form a search pattern. They can be used to perform 'search' or 'search and replace' operations on strings.
+5. **Regular Expressions**: These are sequences of characters that form a search pattern. It can perform 'search' or 'search and replace' operations on strings.
 
-So, in summary, you're likely running a Node.js application that uses Cucumber for BDD testing, WebdriverIO for end-to-end testing, TypeScript for more efficient and error-free JavaScript development, and regular expressions for string manipulation tasks.
+So, in summary, we are running a Node.js application that uses Cucumber for BDD testing, WebdriverIO for end-to-end testing, TypeScript for more efficient and error-free JavaScript development, and regular expressions for string validation.
 
 
 # **What is the difference between npm and npx?**
