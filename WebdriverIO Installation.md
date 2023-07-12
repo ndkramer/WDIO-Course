@@ -21,7 +21,7 @@
     
 12) Run npm init to build project:
     
- **npm init wdio .**
+   **npm init wdio .**
  
 14) Install the following extensions
     Surround with
