@@ -5,6 +5,8 @@ To run your tests: **npm run wdio**
 
 To clear the terminal and run wdio again: **clear ; npm run wdio**
 
+To stop a running job: **control+c**
+
 
 ## **Content for WebdriverIO course**
 
