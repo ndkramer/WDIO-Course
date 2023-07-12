@@ -1,8 +1,6 @@
-Question I still don’t know what it is that I’m running, is this a Node application, Cucumber, Selenium, TextScript, all-of-the-above?
-So, in summary, this code waits until there are at least 3 div.g elements on the page, then finds all div elements with class g, scrolls to the second one, waits until the third one is clickable, and then clicks on it.
+# **Question I still don’t know what it is that I’m running, is this a Node application, Cucumber, Selenium, TextScript, all-of-the-above?**
 
-
-It sounds like you're running a test automation framework that could be considered "all of the above". Here's a breakdown:
+We are running a test automation framework that could be considered "all of the above". Here's a breakdown:
 
 1. **Node.js**: This is a JavaScript runtime built on Chrome's V8 JavaScript engine. It's likely being used to run your application.
 
@@ -17,7 +15,7 @@ It sounds like you're running a test automation framework that could be consider
 So, in summary, you're likely running a Node.js application that uses Cucumber for BDD testing, WebdriverIO for end-to-end testing, TypeScript for more efficient and error-free JavaScript development, and regular expressions for string manipulation tasks.
 
 
-What is the differnce between npm and npx?
+# **What is the difference between npm and npx?**
 **npm** and **npx** are both tools that are included when you install Node.js. Here's a breakdown of what they do:
 
 1. **npm (Node Package Manager)**: This is the default package manager for the JavaScript runtime environment Node.js. It helps with installing, updating, and managing software packages in Node.js.
@@ -25,10 +23,16 @@ What is the differnce between npm and npx?
 2. **npx (Node Package Execute)**: This is a tool that comes with npm 5.2+ and makes it easy to run npm executables. The big difference is that npx will run a package whether it's already installed or not. If it's not installed, npx will temporarily download and run it.
 
 So, in summary, while npm is used for managing packages, npx is designed to make it easier to use those packages.
+When I say "npx is designed to make it easier to use those packages", I mean that npx simplifies the process of running Node.js packages. Here's how:
+1. **No global installation needed**: With npx, you can run a package without having to install it globally on your system. This is particularly useful for packages that you only need to run once or infrequently.
+2. **Easy testing of different versions**: npx allows you to specify which version of a package you want to run. This makes it easy to test your code with different versions of a package without having to install each one.
+3. **Running command-line tools**: Many Node.js packages provide command-line tools. With npx, you can run these tools directly without having to worry about where the package is installed.
+4. **Executing code from URLs and Git**: npx can execute code directly from a URL or a Git repository. This can be useful for testing or running scripts that are hosted online.
+So, in summary, npx is designed to simplify the process of running Node.js packages, making it easier to use them without the need for installation or worrying about their location on your system.
 
 
 
-can you provide an example of when I might use npm vs npx?
+## **Can you provide an example of when I might use npm vs npx?**
 
 here are some examples of when you might use npm and npx:
 **npm:**
@@ -37,13 +41,22 @@ npm install -g lodash
 Or if you want to install it as a dependency for your current project:
 npm install --save lodash
 **npx:**
-Now, let's say there's a package that you need to run occasionally, but don't want to install globally or as a project dependency, like create-react-app. Instead of installing it with npm, you can just use npx:
+Let's say there's a package you need to run occasionally, but don't want to install globally or as a project dependency, like create-react-app. Instead of installing it with npm, you can just use npx:
 npx create-react-app my-app
 This will temporarily download and execute create-react-app, creating a new React application in a directory called my-app.
 So, in summary, you'd use npm when you want to manage (install/update/uninstall) packages, and npx when you want to run packages without installing them.
 
-There are several reasons why you might not want to install a package:
-1. **One-time use**: If you're using a package for a one-off task, it might not make sense to install it and have it take up space on your system.
+## Here are some examples of how you can use npx to run different versions of a package:
+1. **Running a specific version**: If you want to run a specific version of a package, you can specify the version number after the package name. For example, if you want to run version 5.2.0 of the lodash package, you would use the following command:
+npx lodash@5.2.0
+2. **Running the latest version**: If you want to run the latest version of a package, you can use the @latest tag. For example, to run the latest version of lodash, you would use:
+npx lodash@latest
+3. **Running a beta or other non-stable version**: Some packages have beta or other non-stable versions available. You can run these using their respective tags. For example, to run the beta version of lodash, you would use:
+npx lodash@beta
+Remember, one of the benefits of using npx is that it will download and run the specified version of the package without installing it globally on your system. This makes it easy to test different versions without having to worry about conflicts or cleanup.
+
+## There are several reasons why you might not want to install a package:
+1. **One-time use**: If you're using a package for a one-off task, installing it and having it take up space on your system might not make sense.
 2. **Avoiding global installs**: Global installs can lead to version conflicts between different projects, which can cause bugs that are hard to debug. Using npx allows you to use specific versions of packages without installing them globally.
 3. **Testing different versions**: With npx, you can easily test different versions of a package without having to install each one.
 4. **Running scripts**: Some packages are used primarily for their command-line interfaces (CLIs). Instead of installing these globally or as part of your project, you can use npx to run these scripts directly.
