@@ -13,11 +13,12 @@
 6) Create a folder on your system where you would like install the WDIO Project
 8) Open vsCode and open the folder in step 6
 9) Open vsCode Terminal
-10) Run Wdio init
+10) Run Wdio init:
+    
     npm init -y
-11) Run npm init to build project
+12) Run npm init to build project
    npm init wdio .
-12) Install the following exentions
+13) Install the following exentions
     Surround with
     Prettier
     vscode - icons
