@@ -88,7 +88,7 @@ typescript
    const greeting = `Hello, ${name}!`; // 'Hello, John!'
    
    
-# AWait
+# Await
 Await and Async/Await**: Await are used for asynchronous programming. async/await is a syntax sugar on top of Promises and makes asynchronous code look and behave a little more like synchronous code.
    
    Example:
@@ -104,8 +104,28 @@ typescript
      }
    };
    
+** In the following 2 Given statements what is the difference between the await function ‘async (siteURL) =>’ and ‘async function (siteURL) ’**
 
-   
+**Statement #1**
+
+Given (/^Open web Page (.*)$/, async (siteURL) => {
+    await browser.url(siteURL)
+});
+
+**Statement #2**
+
+Given (/^Open web Page (.*)$/, async function (siteURL) {
+    await browser.url(siteURL)
+});
+
+Both statements are essentially doing the same thing, which is defining an asynchronous function that opens a webpage using a given URL. The difference lies in the syntax used to define the function:
+
+Statement #1 uses an arrow function (siteURL) => {}. Arrow functions were introduced in ES6 and provide a concise syntax to write function expressions. They don't have their own bindings to this or super, and should not be used as methods.
+
+Statement #2 uses a traditional function expression function (siteURL) {}. This is the older way to define functions in JavaScript. Unlike arrow functions, these have their own bindings to this.
+
+In the context of your Given statements, both will work the same way as they don't rely on this or super. However, if you were to use this inside the function, the behavior would differ.
+
 # Declaring Variables 
 In TypeScript and JavaScript, there are three main ways to declare variables: **var, let, and const.**
 
@@ -131,7 +151,10 @@ typescript
    
 **2. let:** This is a block-scoped variable declaration. A variable declared with let is only accessible within the block it's declared in, as well as any nested blocks.
 
-   Reason to use: If you need a variable that can be reassigned and is only accessible within a certain block (like a loop or an if statement), you would use let.
+   Reason to use: 
+   If you need a variable that can be reassigned and is only accessible within a certain block (like a loop or an if statement), you would use let.
+      - It is used to declare a variable that can be reassigned.
+      
    Example:
    
 typescript
@@ -148,7 +171,8 @@ typescript
    
 **3. const:** This is also block-scoped, but it's used for constants, i.e., values that won't be reassigned.
 
-   Reason to use: If you have a value that won't change, you should use const. This makes your code more predictable and easier to understand.
+   Reason to use: 
+   If you have a value that won't change, you should use const. This makes your code more predictable and easier to understand.
    Example:
    
 typescript
@@ -268,8 +292,6 @@ function getWeatherActivity(weather: string): string {
 In this example, the function checks the weather and suggests an activity based on it. The switch-case statement is more concise and arguably more readable than the equivalent if-else statement, especially as the number of conditions increases.
 
 
-
-
 # ? (Optional Parameters and Properties)
 In TypeScript, function parameters and object properties can be marked as optional with the ? symbol. 
 This means they may or may not be provided.
@@ -294,6 +316,27 @@ let doubleQuotedString = "Hello, world!";
 Both singleQuotedString and doubleQuotedString are valid and equivalent.
 
 However, it's important to be consistent in your usage of quotes. Mixing single and double quotes in the same project can lead to confusion and make your code harder to read. Some teams or projects may have a preferred style, so always check if there are any established guidelines you should follow.
+
+# {} vs []
+
+In TypeScript, {} and [] are used to represent different data structures:**
+
+1. {} - Curly braces represent an object:
+   * An object is a collection of key-value pairs (properties).
+   * Keys are strings, and values can be any data type.
+   * Example: { key1: 'value1', key2: 42 }
+     
+2. [] - Square brackets represent an array:
+   * An array is an ordered list of elements.
+   * Elements can be any data type.
+   * Example: [1, 'string', { key: 'value' }]
+     
+Here's a summary:
+
+:sparkles: Objects:
+* Syntax: {}
+* Structure: Key-value pairs
+* Example: { firstName: 'John', lastName: 'Doe' }
 
 
 
