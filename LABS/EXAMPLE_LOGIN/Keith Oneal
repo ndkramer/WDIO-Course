@@ -1,0 +1,42 @@
+Feature: Test valid and invalid login attempts
+@demo
+ 
+  Scenario Outline: Test valid and invalid login attempts
+    Given I access the login page <logInUrl>
+    When I login <userName> password <passWord>
+    Then I am log in with popup <message>
+ 
+    Examples:
+        | logInUrl                                  | userName  | passWord | message |
+        | https://www.one80training.com/scrum-labs/ | one80     | one80abc | Login Successful |
+        | https://www.one80training.com/scrum-labs/ | one80user | one80abc | Login Successful |
+        | https://www.one80training.com/scrum-labs/ | one80A    | one8abc  | Wrong login details |
+        | https://www.one80training.com/scrum-labs/ | one80bad  | one80abc | Wrong login details |
+ 
+ 
+Given(/^I access the login page (.*)$/, async function(logInUrl) {
+    await browser.url(logInUrl);
+    console.log('>>> Browser is open');
+    await browser.pause(2000);
+    await browser.setWindowSize(1920, 1080);
+    let elem_loginPage = await $('.et_pb_bg_layout_dark.et_pb_button.et_pb_button_1');
+    await elem_loginPage.click();
+})
+ 
+When(/^I login ((?=(?:.*\d){2,})\w*) password (.*.{3}.*)$/, async function (userName, passWord) {
+    let elem_userName = await $('input#text');
+    let elem_passWord = await $('input#password');
+    let elem_loginbutton = await $('button#login-button')
+    await elem_userName.setValue(userName);
+    await elem_passWord.setValue(passWord);
+    await elem_loginbutton.click();
+})
+ 
+Then(/^I am log in with popup (.*)$/, async function (message) {
+    let alert_text = await browser.getAlertText();
+    await expect(alert_text).toEqual(message);
+    console.log(">>>>> alert_text: ", alert_text);
+    await browser.pause(2000);
+    await browser.acceptAlert();    
+   
+})
