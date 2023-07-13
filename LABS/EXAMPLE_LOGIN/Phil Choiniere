@@ -1,0 +1,504 @@
+Feature:
+Feature: Validate youtube access from webdriverio community tab
+# Three test cases
+# Two positive, one negative
+# use regex to validate username has at least 2 digits and password has at least 3 characters
+# Valid credentials
+# - one80/one80abc
+# - one80user/one80abc
+# - one80user2/one80abc
+ 
+    Background:
+        Given I am on the one80training website
+        When I click the VIEW LAB button for LOGIN FORM
+        Then I am taken to the login portal
+ 
+    @lab2
+    Scenario: Validate positive test cases for login credentials for one80training website
+        When I login with <username> and <password>
+        Then I see the Login Successful pop-up
+ 
+ 
+        Examples:
+            | Test ID | username   | password |
+            | 1       | one80      | one80abc |
+            | 2       | one80user  | one80abc |
+ 
+ 
+    @lab2
+    Scenario: Validate negative test cases login credentials for one80training website
+        When I login with <username> and <password>
+        Then I see the Wrong login details pop-up
+ 
+        Examples:
+            | Test ID | username   | password |
+            | 1       | one80      | one80ab  |
+ 
+   
+    @lab2
+    Scenario: Validate invalid credentials result in failures
+        When I login with <username> and <password>
+        Then nothing happens
+ 
+        Examples:
+            | Test ID | username   | password |
+            | 1       | one8       | one80abc |
+            | 2       | one80user2 | on       |
+ 
+ 
+ 
+Step:
+ 
+import { Given, When, Then } from "@wdio/cucumber-framework";
+ 
+// Basic gherkin syntax for keywords
+// Given(/^ENTER TEXT HERE$/, async function() {
+    //// ADD STUFF
+// })
+ 
+Given(/^I am on the google search page$/, async function() {
+ 
+    await browser.url("https://google.com");
+    console.log('>>> Google is open');
+    await browser.pause(3000);
+ 
+});
+ 
+When(/^I search for (.*)$/, async function(searchItem) {
+ 
+    console.log('>>> searchItem = ', searchItem);
+   
+    // Find element on the screen where the field, name, equals q and set it to elem_search
+    let elem_search = await $('[name=q]');
+ 
+    // Set value of element on screen to parameter value then click enter button
+    await elem_search.setValue(searchItem);
+    await browser.keys("Enter");
+ 
+});
+ 
+When(/^I click on the first result$/, async function() {
+   
+    // Find first element with an h3 tag and asign it to the variable
+    let elem_firstResult = await $('<h3>');
+    await elem_firstResult.click();
+ 
+});
+ 
+Then(/^I should be taken to (.*)$/, async function(expectedURL) {
+ 
+    console.log('>>> expectedURL = ', expectedURL);
+    await expect(browser).toHaveUrl(expectedURL);
+ 
+});
+ 
+ 
+Given(/^I am on the webdriverio home page$/, async function() {
+ 
+    await browser.url("https://webdriver.io/");
+    console.log('>>> webdriverio is open');
+    await browser.maximizeWindow()
+    await browser.pause(3000);
+ 
+});
+ 
+Given(/^I am on the webdriverio community page$/, async function() {
+ 
+    await browser.url("https://webdriver.io/community/support");
+    console.log('>>> webdriverio community page is open');
+    await browser.maximizeWindow()
+    await browser.pause(3000);
+ 
+});
+ 
+When(/^I go to the (.*) tab$/, async function(tabName) {
+   
+    switch(tabName) {
+        case 'Community':
+            let elem_tabName = await $('.navbar__items > a:nth-of-type(6)');
+            await elem_tabName.click();
+            break;
+    }
+ 
+ 
+});
+ 
+Then(/^I am taken to the (.*) page$/, async function(expectedURL) {
+ 
+    console.log('>>> expectedURL = ', expectedURL);
+    await browser.switchWindow(expectedURL)
+    await browser.pause(1000);
+    await expect(browser).toHaveUrl(expectedURL);
+ 
+    if (expectedURL.includes("discord")) {
+        const elem_username = await $('input[name="username"]');
+        const elem_DisplayStatus = await elem_username.isDisplayed();
+        console.log('>>> Username field for discord displayed? ', elem_DisplayStatus);
+        expect(elem_DisplayStatus).toBe(true);
+    }
+ 
+ 
+ 
+});
+ 
+When(/^I go to the (.*) button$/, async function(buttonName) {
+ 
+    switch(buttonName) {
+        case 'Youtube':
+            const elem_youtubeButton = await $('.header-youtube-link.navbar__item.navbar__link');
+            await elem_youtubeButton.click();
+            break;
+        case 'Github':
+            const elem_githubButton = await $('.header-github-link.navbar__item.navbar__link');
+            await elem_githubButton.click();
+            break;
+        case 'Twitter':
+            const elem_twitterButton = await $('.header-twitter-link.navbar__item.navbar__link');
+            await elem_twitterButton.click();
+            break;
+        case 'Discord':
+            const elem_discordButton = await $('.header-discord-link.navbar__item.navbar__link');
+            await elem_discordButton.click();
+            break;
+    }
+ 
+});
+ 
+Given(/^I am on the one80training website$/, async function() {
+ 
+    await browser.url("https://www.one80training.com/scrum-labs/");
+    console.log('>>> one80training website is open');
+    await browser.pause(3000);
+ 
+});
+ 
+When(/^I click the VIEW LAB button for LOGIN FORM$/, async function() {
+ 
+    let elem_LoginFormButton = await $('.et_pb_bg_layout_dark.et_pb_button.et_pb_button_1');
+    await elem_LoginFormButton.click()
+    await browser.pause(3000);
+ 
+});
+ 
+Then(/^I am taken to the login portal$/, async function() {
+ 
+    await expect(browser).toHaveUrl("https://www.one80training.com/scrum-labs/scrumlab-login-form/");
+    console.log('>>> Login Portal opened');
+ 
+});
+ 
+// For the password field, this also works: ((?=(?:.*\d){2,})\w*)
+When(/^I login with (.*\d.*\d.*) and (.*.{3}.*)$/, async function(username, password) {
+ 
+    console.log('>>> Username = ', username, "\nPassword = ", password);
+   
+    // Find element on the screen where the field, name, equals q and set it to elem_search
+    let elem_username = await $('input#text');
+    let elem_password = await $('input#password');
+    let elem_loginbutton = await $('button#login-button');
+ 
+    // Set value of element on screen to parameter value then click enter button
+    await elem_username.setValue(username);
+    await elem_password.setValue(password);
+    await elem_loginbutton.click();
+ 
+});
+ 
+Then(/^I see the (.*) pop-up$/, async function(alert) {
+ 
+    let elem_popuptext = await browser.getAlertText();
+    expect(elem_popuptext).toEqual(alert);
+ 
+})
+ 
+Then(/^nothing happens$/, async function() {
+ 
+    console.log('>>> Invalid username or password');
+ 
+})
+ 
+ 
+From: Philip Choiniere_CTR 
+Sent: Tuesday, July 11, 2023 12:32 PM
+To: Nick Kramer <nick.kramer@webagesolutions.com>
+Subject: RE: WDIO Course - examples
+ 
+Feature:
+ 
+Feature: Validate youtube access from webdriverio community tab
+# Validate that the user can go to https://webdriver.io/
+# Once on that page they should be able to go to the community tab
+# On the commubity tab they should be able to go to the youtube channel
+# Verify that the youtube channel is the official channel for WebDriverIO
+ 
+    @demo
+    Scenario: Validate community tab takes user to the community page
+ 
+        Given I am on the webdriverio home page
+        When I go to the <tabName> tab
+        Then I am taken to the <expectedURL> page
+ 
+        Examples:
+            | Test ID | tabName   | expectedURL                            |
+            | 1       | Community | https://webdriver.io/community/support |
+ 
+    @demo1
+    Scenario: Validate social media button access from wdio community
+        Given I am on the webdriverio community page
+        When I go to the <buttonName> button
+        Then I am taken to the <expectedURL> page
+ 
+        Examples:
+            | Test ID | buttonName | expectedURL                                                          |
+            | 1       | Youtube    | https://www.youtube.com/@webdriverio                                 |
+            | 2       | Github     | https://github.com/webdriverio/webdriverio                           |
+            | 3       | Twitter    | https://twitter.com/i/flow/login?redirect_after_login=%2Fwebdriverio |
+            | 4       | Discord    | https://discord.com/invite/H4v23gQvkm                                |
+ 
+ 
+ 
+Steps:
+ 
+import { Given, When, Then } from "@wdio/cucumber-framework";
+ 
+// Basic gherkin syntax for keywords
+// Given(/^ENTER TEXT HERE$/, async function() {
+    //// ADD STUFF
+// })
+ 
+Given(/^I am on the google search page$/, async function() {
+ 
+    await browser.url("https://google.com");
+    console.log('>>> Google is open');
+    await browser.pause(3000);
+ 
+});
+ 
+When(/^I search for (.*)$/, async function(searchItem) {
+ 
+    console.log('>>> searchItem = ', searchItem);
+   
+    // Find element on the screen where the field, name, equals q and set it to elem_search
+    let elem_search = await $('[name=q]');
+ 
+    // Set value of element on screen to parameter value then click enter button
+    await elem_search.setValue(searchItem);
+    await browser.keys("Enter");
+ 
+});
+ 
+When(/^I click on the first result$/, async function() {
+   
+    // Find first element with an h3 tag and asign it to the variable
+    let elem_firstResult = await $('<h3>');
+    await elem_firstResult.click();
+ 
+});
+ 
+Then(/^I should be taken to (.*)$/, async function(expectedURL) {
+ 
+    console.log('>>> expectedURL = ', expectedURL);
+    await expect(browser).toHaveUrl(expectedURL);
+ 
+});
+ 
+ 
+Given(/^I am on the webdriverio home page$/, async function() {
+ 
+    await browser.url("https://webdriver.io/");
+    console.log('>>> webdriverio is open');
+    await browser.maximizeWindow()
+    await browser.pause(3000);
+ 
+});
+ 
+Given(/^I am on the webdriverio community page$/, async function() {
+ 
+    await browser.url("https://webdriver.io/community/support");
+    console.log('>>> webdriverio community page is open');
+    await browser.maximizeWindow()
+    await browser.pause(3000);
+ 
+});
+ 
+When(/^I go to the (.*) tab$/, async function(tabName) {
+   
+    switch(tabName) {
+        case 'Community':
+            let elem_tabName = await $('.navbar__items > a:nth-of-type(6)');
+            await elem_tabName.click();
+            break;
+    }
+ 
+ 
+});
+ 
+Then(/^I am taken to the (.*) page$/, async function(expectedURL) {
+ 
+    console.log('>>> expectedURL = ', expectedURL);
+    await browser.switchWindow(expectedURL)
+    await browser.pause(1000);
+    await expect(browser).toHaveUrl(expectedURL);
+ 
+    if (expectedURL.includes("discord")) {
+        const elem_username = await $('input[name="username"]');
+        const elem_DisplayStatus = await elem_username.isDisplayed();
+        console.log('>>> Username field for discord displayed? ', elem_DisplayStatus);
+        expect(elem_DisplayStatus).toBe(true);
+    }
+ 
+ 
+ 
+});
+ 
+When(/^I go to the (.*) button$/, async function(buttonName) {
+ 
+    switch(buttonName) {
+        case 'Youtube':
+            const elem_youtubeButton = await $('.header-youtube-link.navbar__item.navbar__link');
+            await elem_youtubeButton.click();
+            break;
+        case 'Github':
+            const elem_githubButton = await $('.header-github-link.navbar__item.navbar__link');
+            await elem_githubButton.click();
+            break;
+        case 'Twitter':
+            const elem_twitterButton = await $('.header-twitter-link.navbar__item.navbar__link');
+            await elem_twitterButton.click();
+            break;
+        case 'Discord':
+            const elem_discordButton = await $('.header-discord-link.navbar__item.navbar__link');
+            await elem_discordButton.click();
+            break;
+    }
+ 
+});
+ 
+ 
+ 
+From: Philip Choiniere_CTR 
+Sent: Tuesday, July 11, 2023 9:31 AM
+To: Nick Kramer <nick.kramer@webagesolutions.com>
+Subject: WDIO Course - examples
+ 
+Feature:
+ 
+Feature: Validate youtube access from webdriverio community tab
+# Validate that the user can go to https://webdriver.io/
+# Once on that page they should be able to go to the community tab
+# On the commubity tab they should be able to go to the youtube channel
+# Verify that the youtube channel is the official channel for WebDriverIO
+ 
+    @demo
+    Scenario: Validate community tab takes user to the community page
+ 
+        Given I am on the webdriverio home page
+        When I go to the <tabName> tab
+        Then I am taken to the <expectedURL> page
+ 
+        Examples:
+            | Test ID | tabName   | expectedURL                            |
+            | 1       | Community | https://webdriver.io/community/support |
+ 
+    @demo
+    Scenario: Validate youtube access from community page
+        When I go to the <buttonName> button
+        Then I am taken to the <expectedURL> page
+ 
+        Examples:
+            | Test ID | buttonName | expectedURL                          |
+            | 1       | Youtube    | https://www.youtube.com/@webdriverio |
+ 
+ 
+ 
+Steps:
+ 
+import { Given, When, Then } from "@wdio/cucumber-framework";
+ 
+// Basic gherkin syntax for keywords
+// Given(/^ENTER TEXT HERE$/, async function() {
+    //// ADD STUFF
+// })
+ 
+Given(/^I am on the google search page$/, async function() {
+ 
+    await browser.url("https://google.com");
+    console.log('>>> Google is open');
+    await browser.pause(3000);
+ 
+});
+ 
+When(/^I search for (.*)$/, async function(searchItem) {
+ 
+    console.log('>>> searchItem = ', searchItem);
+   
+    // Find element on the screen where the field, name, equals q and set it to elem_search
+    let elem_search = await $('[name=q]');
+ 
+    // Set value of element on screen to parameter value then click enter button
+    await elem_search.setValue(searchItem);
+    await browser.keys("Enter");
+ 
+});
+ 
+When(/^I click on the first result$/, async function() {
+   
+    // Find first element with an h3 tag and asign it to the variable
+    let elem_firstResult = await $('<h3>');
+    await elem_firstResult.click();
+ 
+});
+ 
+Then(/^I should be taken to (.*)$/, async function(expectedURL) {
+ 
+    console.log('>>> expectedURL = ', expectedURL);
+    await expect(browser).toHaveUrl(expectedURL);
+ 
+});
+ 
+ 
+Given(/^I am on the webdriverio home page$/, async function() {
+ 
+    await browser.url("https://webdriver.io/");
+    console.log('>>> webdriverio is open');
+    await browser.maximizeWindow()
+    await browser.pause(3000);
+ 
+});
+ 
+When(/^I go to the (.*) tab$/, async function(tabName) {
+   
+    switch(tabName) {
+        case 'Community':
+            let elem_tabName = await $('.navbar__items > a:nth-of-type(6)');
+            await elem_tabName.click();
+            break;
+    }
+ 
+ 
+});
+ 
+Then(/^I am taken to the (.*) page$/, async function(expectedURL) {
+ 
+    console.log('>>> expectedURL = ', expectedURL);
+    await browser.switchWindow(expectedURL)
+    await browser.pause(1000);
+    await expect(browser).toHaveUrl(expectedURL);
+ 
+});
+ 
+When(/^I go to the (.*) button$/, async function(buttonName) {
+ 
+    switch(buttonName) {
+        case 'Youtube':
+            let elem_buttonName = await $('.header-youtube-link.navbar__item.navbar__link');
+            await elem_buttonName.click();
+            break;
+    }
+ 
+});
+ 
+ 
+ 
+ 
+ 
