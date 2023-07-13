@@ -16,7 +16,7 @@ Note:
 For VSCode you can also select the lines you want to comment and press
 Ctrl + /
 
-# Early Return
+#Early Return
 In TypeScript, as in JavaScript, it's often recommended to use the "early return" pattern instead of deeply nested if-else statements. This can make your code more readable and maintainable. Here's an example:
 
 function processNumber(num: number): string {
@@ -36,4 +36,4 @@ function processNumber(num: number): string {
 In this example, each condition returns early if it's met. This avoids the need for else or else if clauses. It's also clear what condition each return statement corresponds to, making the code easier to understand.
 However, there are situations where traditional if-else statements or switch-case statements might be more appropriate, depending on the complexity of your conditions and what you find most readable.
 
-# IF-Else:
+#IF-Else:
