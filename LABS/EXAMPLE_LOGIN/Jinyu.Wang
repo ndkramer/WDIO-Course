@@ -1,0 +1,59 @@
+Features: 
+
+Feature: Test to validate username and password are working correctly
+  @lab2
+  Scenario Outline: Do we have valid username/password
+
+    Given I am on the <url> page
+    When I click on <link> 
+    When I input username <username>
+    When I input password <password>
+    Then I validate login <status>
+
+    Examples: 
+      | Test ID | url                                       | link                                              | username  | password | status              |
+      | 1       | https://www.one80training.com/scrum-labs/ | .et_pb_bg_layout_dark.et_pb_button.et_pb_button_1 | one80     | one80abc | Login Successful    |
+      | 2       | https://www.one80training.com/scrum-labs/ | .et_pb_bg_layout_dark.et_pb_button.et_pb_button_1 | one8user0 | t80w80o  | Wrong login details |
+      | 3       | https://www.one80training.com/scrum-labs/ | .et_pb_bg_layout_dark.et_pb_button.et_pb_button_1 | one8      | one80abc | fail                |
+
+
+Steps: 
+
+// Lab2: username password regex validation
+
+Given(/^I am on the (.*) page$/, async function(url) {
+    await browser.url(url);
+    console.log(`>>> open ${url}`);
+    await browser.setWindowSize(1920, 1080);
+    await browser.pause(3000);
+});
+
+
+When(/^I click on (.*)$/, async function(clickedLink) {
+    console.log(`>>> click ${clickedLink}`);
+    let elem_link = await $(clickedLink);
+    await elem_link.click();
+    await browser.pause(3000);
+});
+
+When(/^I input username ((?=(?:.*\d){2,})\w*)$/, async function(username) {
+    console.log(`>>> username = ${username}`);
+    let elem_username = await $('input#text');
+    await elem_username.setValue(username);
+});
+
+When(/^I input password ((?=(?:.*[a-zA-Z]){3,})\w*)$/, async function(password) {
+    console.log(`>>> password = ${password}`);
+    let elem_password = await $('input#password');
+    await elem_password.setValue(password);
+});
+
+Then(/^I validate login (.*)$/, async function(status) {
+    let elem_login = await $('button#login-button');
+    await elem_login.click();
+    await browser.pause(1000);
+    console.log(`>>> status = ${status}`);
+    let alertText = await browser.getAlertText();
+    // console.log('>>> ', alertText);
+    await expect(alertText).toEqual(status);
+});
