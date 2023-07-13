@@ -1,0 +1,170 @@
+Feature:
+Feature: Form Test
+ 
+@test
+    Scenario: Test Successful Submission
+ 
+        Given I am currently on the <start_page>
+        When I click on <view_form>
+        Then I should be sent to <expectedUrl1>
+        When I type in name <name>
+        When I type in email <email>
+        When I type in company <company>
+        When I type in phone <phone>
+        When I choose topic <choice>
+        When I type in message <message>
+        When I click on <submit_form>
+        Then I should be sent to <expectedUrl2>
+ 
+    Examples:
+        | start_page |  view_form | expectedUrl1 | name | company | phone | message | email | choice | submit_form | expectedUrl2 |
+        | https://www.one80training.com/scrum-labs/  | .et_pb_bg_layout_dark.et_pb_button.et_pb_button_0  | https://www.one80training.com/scrum-labs/scrumlabs-contact-form/  | Danqi | InterSystems | 123-456-7890 | hello | abc@abc.com | 1 | form[name='myForm'] > input[value='Submit'] | https://www.one80training.com/thank_you |
+        | https://www.one80training.com/scrum-labs/  | .et_pb_bg_layout_dark.et_pb_button.et_pb_button_0  | https://www.one80training.com/scrum-labs/scrumlabs-contact-form/  | Danqi | InterSystems | 123-456-7890 | hello | abc@abc.com | 2 | form[name='myForm'] > input[value='Submit'] | https://www.one80training.com/thank_you |
+        | https://www.one80training.com/scrum-labs/  | .et_pb_bg_layout_dark.et_pb_button.et_pb_button_0  | https://www.one80training.com/scrum-labs/scrumlabs-contact-form/  | Danqi | InterSystems | 123-456-7890 | hello | abc@abc.com | 3 | form[name='myForm'] > input[value='Submit'] | https://www.one80training.com/thank_you |
+        | https://www.one80training.com/scrum-labs/  | .et_pb_bg_layout_dark.et_pb_button.et_pb_button_0  | https://www.one80training.com/scrum-labs/scrumlabs-contact-form/  | Danqi | InterSystems || hello | abc@abc.com | 2 | form[name='myForm'] > input[value='Submit'] | https://www.one80training.com/thank_you |
+ 
+@test
+    Scenario: Test error messages
+ 
+        Given I am currently on the <start_page>
+        When I click on <view_form>
+        Then I should be sent to <expectedUrl1>
+        When I type in name <name>
+        When I type in email <email>
+        When I type in company <company>
+        When I type in phone <phone>
+        When I choose topic <choice>
+        When I type in message <message>
+        When I click on <submit_form>
+        Then I see warning <warning_field> value <warning_value>
+        Then I see alart <alert_value>
+ 
+    Examples:
+ 
+        | start_page |  view_form | expectedUrl1 | name | company | phone | message | email | choice | submit_form | warning_field | warning_value | alert_value |
+        | https://www.one80training.com/scrum-labs/  | .et_pb_bg_layout_dark.et_pb_button.et_pb_button_0  | https://www.one80training.com/scrum-labs/scrumlabs-contact-form/  || InterSystems | 123-456-7890 | hello | abc@abc.com | 2 | form[name='myForm'] > input[value='Submit'] | span#nameError | Please fill out the Name field. ||
+        | https://www.one80training.com/scrum-labs/  | .et_pb_bg_layout_dark.et_pb_button.et_pb_button_0  | https://www.one80training.com/scrum-labs/scrumlabs-contact-form/  ||| 123-456-7890 | hello | abc@abc.com | 1 | form[name='myForm'] > input[value='Submit'] | span#nameError | Please fill out the Name field. ||
+        | https://www.one80training.com/scrum-labs/  | .et_pb_bg_layout_dark.et_pb_button.et_pb_button_0  | https://www.one80training.com/scrum-labs/scrumlabs-contact-form/  | Danqi | InterSystems | 123-456-7890 || abc@abc.com | 3 | form[name='myForm'] > input[value='Submit'] ||| Please fill out message field. |
+        | https://www.one80training.com/scrum-labs/  | .et_pb_bg_layout_dark.et_pb_button.et_pb_button_0  | https://www.one80training.com/scrum-labs/scrumlabs-contact-form/  || InterSystems | 123-456-7890 || abc@abc.com | 1 | form[name='myForm'] > input[value='Submit'] | span#nameError | Please fill out the Name field. ||
+ 
+
+@test
+    Scenario: Test no email
+ 
+        Given I am currently on the <start_page>
+        When I click on <view_form>
+        Then I should be sent to <expectedUrl1>
+        When I type in name <name>
+        When I type in company <company>
+        When I type in phone <phone>
+        When I choose topic <choice>
+        When I type in message <message>
+        When I click on <submit_form>
+        Then I see warning <warning_field> value <warning_value>
+        Then I see alart <alert_value>
+   
+        Examples:
+            | start_page |  view_form | expectedUrl1 | name | company | phone | message | email | choice | submit_form | warning_field | warning_value | alert_value |
+            | https://www.one80training.com/scrum-labs/  | .et_pb_bg_layout_dark.et_pb_button.et_pb_button_0  | https://www.one80training.com/scrum-labs/scrumlabs-contact-form/  | Danqi | InterSystems | 123-456-7890 | hello || 1 | form[name='myForm'] > input[value='Submit'] | span#emailError |Please fill out the Email field.||
+ 
+ 
+ 
+Steps:
+import { Given, Then, When } from "@wdio/cucumber-framework";
+ 
+Given(/^I am currently on the (.*)$/, async function(start_page) {
+    await browser.setWindowSize(1080, 1920);
+    await browser.url(start_page);
+});
+ 
+
+When(/^I click on (.*)$/, async function(input_css){
+    let element_click = await $(input_css);
+    await element_click.click();
+});
+ 
+Then(/^I should be sent to (.*)$/, async function(expected) {
+    console.log('>>>expectedUrl =', expected);
+    await browser.switchWindow(expected);
+    await expect(browser).toHaveUrl(expected);
+});
+ 
+// When(/^I type in general field (.*), (.*), (.*), (.*)$/, async function(name, company, phone, message){
+//     let elem_name = await $("form[name='myForm'] > input[name='cname']");
+//     await elem_name.setValue(name);
+ 
+//     let elem_company = await $("form[name='myForm'] > input[name='company']");
+//     await elem_company.setValue(company);
+ 
+//     let elem_phone = await $("form[name='myForm'] > input[name='phone']");
+//     await elem_phone.setValue(phone);
+ 
+//     let elem_msg = await $("form[name='myForm'] > textarea[name='message']");
+//     await elem_msg.setValue(message);
+ 
+//     await browser.pause(1000);
+// });
+ 
+When(/^I type in name (.*)$/, async function(name){
+    let elem_name = await $("form[name='myForm'] > input[name='cname']");
+    await elem_name.setValue(name);
+    await browser.pause(500);
+});
+ 
+When(/^I type in company (.*)$/, async function(company){
+    let elem_company = await $("form[name='myForm'] > input[name='company']");
+    await elem_company.setValue(company);
+    await browser.pause(500);
+});
+ 
+When(/^I type in phone (.*)$/, async function(phone){
+    let elem_phone = await $("form[name='myForm'] > input[name='phone']");
+    await elem_phone.setValue(phone);
+    await browser.pause(500);
+});
+ 
+When(/^I type in message (.*)$/, async function(message){
+    let elem_msg = await $("form[name='myForm'] > textarea[name='message']");
+    await elem_msg.setValue(message);
+    await browser.pause(500);
+});
+ 
+When(/^I type in email (\S*@\S*\.\S\S\S)$/, async function(email){
+    let elem_field = await $("form[name='myForm'] > input[name='cemail']");
+    await elem_field.setValue(email);
+    await browser.pause(1000);
+});
+ 
+When(/^I choose topic (.*)$/, async function(choice){
+    let elem_form = await $("form[name='myForm'] > select[name='topic']");
+    await elem_form.selectByVisibleText('Choice ' + choice)
+    await browser.pause(1000);
+});
+ 
+Then(/^I see warning (.*) value (.*)$/, async function(warning, value) {
+    if (warning === ""){
+        return
+    }
+    let elem_warning = await $(warning)
+    await expect(elem_warning).toHaveText(value)
+    await browser.pause(1000);
+});
+ 
+
+Then(/^I see alart (.*)$/, async function(message) {
+    if (message === ""){
+        return
+    }
+    console.log('>>>expectedAlertMessage =', message);
+    let alert = await browser.getAlertText();
+    await expect(alert).toEqual(message);
+    await browser.pause(1000);
+});
+
+
+
+
+
+
+
+
