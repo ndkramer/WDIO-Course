@@ -1,0 +1,107 @@
+ 
+Feature:
+ 
+Feature: contact test
+    @final
+    Scenario Outline: test1
+        Given I am on one80 site
+        When Click on contact link
+        When Name Enter <name>
+        When Email Enter <email>
+        When Company Enter <company>
+        When Phone Enter <phone>
+        When Course Enter <course>
+        When Message Enter <message>
+        When Click Submit
+        Then Contact Meet the <expectation>
+ 
+    Examples:
+        | Test ID | name | email | company | phone | course | message | expectation |
+        | 1  | John | John@abc.com | corp | 123-123-1234 | 1 | asdfg | pass |
+        | 2  | John | John@abc.com | corp | 123-123-1234 | 2 | dfdsd | pass |
+        | 3  | John | John@abc.com | corp | 123-123-1234 | 3 | dfdsd | pass |
+        | 4  | John | John@abc.com | corp |  | 2 | dfdsd | pass |
+        | 5  |  | John@abc.com | corp | 123-123-1234 | 2 | dfdsd | fail |
+        | 6  |  | John@abc.com |  | 123-123-1234 | 1 | dfdsd | fail |
+        | 7  | John | John@abc.com | corp | 123-123-1234 | 3 |  | fail |
+        | 8  |  | John@abc.com | corp | 123-123-1234 | 1 |  | fail |
+        | 9  | John |  | corp | 123-123-1234 | 3 | dsfef | fail |
+Steps:
+ 
+Given(/^I am on one80 site$/, async function() {
+    await browser.setWindowSize(1920, 1080);
+    await browser.url(https://www.one80training.com/scrum-labs/);
+    await browser.pause(2000);
+});
+ 
+When(/^Click on contact link$/, async function() {
+    let login_link = await $('.flexed.top-bar-menu > a:nth-of-type(1)');
+    await login_link.click();
+    await browser.scroll(0,1200);
+});
+ 
+When(/^Name Enter (.*)$/, async function(content) {
+    let elem = await $("input[name='input_1']");
+    await elem.setValue(content);
+});
+ 
+When(/^Email Enter (|.+@.+\.\w{3,})$/, async function(content) {
+    let elem = await $("input[name='input_2']");
+    await elem.setValue(content);
+});
+ 
+When(/^Company Enter (.*)$/, async function(content) {
+    let elem = await $("input[name='input_3']");
+    await elem.setValue(content);
+});
+ 
+When(/^Phone Enter (.*)$/, async function(content) {
+    let elem = await $("input[name='input_4']");
+    console.log(">>>>>>>>>>>>>>> Phone is: ", content);
+    await elem.setValue(content);
+});
+ 
+When(/^Message Enter (.*)$/, async function(content) {
+    let elem = await $("textarea[name='input_5']");
+    await elem.setValue(content);
+});
+ 
+When(/^Course Enter (.*)$/, async function(content) {
+    let elem = await $("select[name='input_6']");
+ 
+    switch (content) {
+        case "1":
+            elem.selectByIndex(0)
+            break;
+ 
+        case "2":
+            elem.selectByIndex(1)
+            break;
+ 
+        case "3":
+            elem.selectByIndex(2)
+            break;
+   
+        default:
+            break;
+    }
+});
+ 
+When(/^Click Submit$/, async function() {
+    await browser.scroll(0,500);
+    let login_button = await $('input#gform_submit_button_2');
+    await login_button.click();
+});
+ 
+Then(/^Contact Meet the (.*)$/, async function (expectation) {
+    await browser.scroll(0,-900);
+    if (expectation == "pass") {
+        let elem_username = await $('div#gform_confirmation_message_2');
+        await expect(elem_username).toExist();
+    } else {
+        let elem_username = await $('div#gform_2_validation_container > .gform_submission_error.hide_summary');
+        await expect(elem_username).toExist();
+    }
+    await browser.reloadSession()
+   
+});
