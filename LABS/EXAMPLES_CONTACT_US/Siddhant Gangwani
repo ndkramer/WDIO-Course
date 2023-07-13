@@ -1,0 +1,121 @@
+Feature File:
+Feature: Test to make sure we can Login
+@test
+ 
+  Scenario Outline: Can we Login
+ 
+   Given I am on the one80Training Website
+   When I Scroll and click the Contact Form
+   When Login with <name>,<email>,<company>,<phone>,<topic> and <message>
+   Then I should be able to submit form
+ 
+        Examples:
+            | Test ID | name      | email               | company      | phone      | topic   | message               |
+            | 1       | one80     | one80abc@gmail.com  | construction | 7899098789 | choice1 | some gibberish output |
+            | 2       | one8user9 | 123@gmailsadsad.edu | construction | 7899098789 | choice2 | some gibberish output |
+            | 3       | on8e5     | one80abc@g.com      | construction | 7899098789 | choice3 | some gibberish output |
+            | 4       | on8e5     | one80abc@g.com      | construction |            | choice3 | some gibberish output |
+            | 5       |           | one80abc@g.com      | construction | 7879098765 | choice2 | some gibberish output |
+            | 6       |           | one80abc@g.com      |              | 7879098765 | choice1 | some gibberish output |
+            | 7       | on8e5     | one80abc@g.com      | construction | 7899098789 | choice3 |                       |
+            | 8       |           | one80abc@g.com      | construction | 7899098789 | choice1 |                       |
+            | 9       | one12     | one80abc@g.com      | construction | 7899098789 | choice1 |                       |
+            | 10      | on8e5     |                     | construction | 7899098789 | choice3 | some gibberish output |
+ 
+Step File:
+import { Given, Then, When } from "@wdio/cucumber-framework";
+ 
+Given(/^I am on the one80Training Website$/, async function() {
+    await browser.url(https://www.one80training.com/scrum-labs/);
+    console.log('>>> Website is Open');
+    await browser.pause(3000);
+});
+ 
+When(/^I Scroll and click the Contact Form$/,async function() {
+    await browser.maximizeWindow()
+    await browser.scroll(0, 200)
+    let ele = await $('.et_pb_bg_layout_dark.et_pb_button.et_pb_button_0');
+    await ele.click();
+    console.log('>>> Contact Form is Open');
+    await browser.pause(3000);
+});
+ 
+When(/^Login with (.*),([a-zA-Z0-9]*@+.+[.].{3}),(.*),(.*),(.*) and (.*)$/, async function(name,email,company,phone,topic,message) {
+    console.log('>>>name: ',name)
+    console.log('>>>email: ',email)
+    console.log('>>>phone: ',phone)
+    console.log('>>>topic: ',topic)
+    console.log('>>>topic: ',topic)
+    console.log('>>>message: ',message)
+   
+    let eleName = await $('form[name=\'myForm\'] > input[name=\'cname\']');
+    let eleEmail = await $('form[name=\'myForm\'] > input[name=\'cemail\']');
+    let eleCompany = await $('form[name=\'myForm\'] > input[name=\'company\']');
+    let elePhone = await $('form[name=\'myForm\'] > input[name=\'phone\']');
+    let topicButton = await $('form[name=\'myForm\'] > select[name=\'topic\']')
+    let topicChoice = await $('select[name=\'topic\'] > option[value=\''+topic+'\']')
+    let eleMessage = await $('form[name=\'myForm\'] > textarea[name=\'message\']');
+ 
+    await eleName.setValue(name);
+    await eleEmail.setValue(email);
+    await eleCompany.setValue(company);
+    await elePhone.setValue(phone);
+    await topicButton.click();
+    await topicChoice.click();
+    await eleMessage.setValue(message);
+    await browser.pause(2000);
+});
+ 
+Then(/^I should be able to submit form$/, async function () {
+    let submitButton = await $('form[name=\'myForm\'] > input[value=\'Submit\']')
+    await submitButton.click();
+    let errorCount=0;
+    let nameError = await $('span#nameError');
+    let emailError = await $('span#emailError');
+    let companyError = await $('span#companyError');
+    let messageError = await $('span#messageError');
+ 
+    if(nameError.isDisplayed())
+    {
+        errorCount++;
+        console.log('>>>Name Error');
+    }
+ 
+    if(emailError.isDisplayed())
+    {
+        errorCount++;
+        console.log('>>>Email Error');
+    }
+ 
+    if(companyError.isDisplayed())
+    {
+        errorCount++;
+        console.log('>>>Company Error');
+    }
+ 
+    if(messageError.isDisplayed())
+    {
+        errorCount++;
+        console.log('>>>Message Error');
+        if(!nameError.isDisplayed()){
+            let alert=await browser.getAlertText()
+            console.log('>>> Alert: ',alert);
+            await browser.pause(1000);
+            await browser.acceptAlert();
+            await expect(alert).toEqual('Please fill out message field.')
+        }
+        await browser.pause(5000);
+    }
+ 
+    if(errorCount==0) {
+        await expect(browser).toHaveUrl('https://www.one80training.com/thank_you');
+    }
+ 
+    await browser.pause(2000);
+});
+ 
+
+ 
+ 
+
+ 
