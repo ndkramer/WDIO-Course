@@ -1,0 +1,472 @@
+New Feature:
+Feature: Several test cases
+
+    @demo
+    Scenario Outline: Going to One80Training
+        Given I am on the Google search page
+        When I go to the website <website>
+        Then I see the website is <expectedUrl>
+
+        Examples:
+        | ID | website | websitename |
+        | 1 | https://www.one80training.com/scrum-labs/ | https://www.one80training.com/scrum-labs/ |
+
+    @demo
+    Scenario Outline: Going to LogIn
+        Given I am on the <website> website
+        When I click on the <button> button on the website
+        Then I see the website is <expectedUrl>
+
+        Examples:
+        | ID | website | button | page |
+        | 1 | https://www.one80training.com/scrum-labs/ | .et_pb_bg_layout_dark.et_pb_button.et_pb_button_1 | https://www.one80training.com/scrum-labs/scrumlab-login-form/ |
+
+    @demo
+    Scenario Outline: Entering In Credentials
+        Given I am on the <website> website
+        When I enter <username> as my username
+        When I enter <password> as my password
+        When I click on the <button> button on the website
+        Then I should get a popup with <message>
+
+        Examples:
+        | ID | website | username | password | button | message |
+        | 1 | https://www.one80training.com/scrum-labs/scrumlab-login-form/ | one80 | one80abc | button#login-button | Login Successful |
+        | 2 | https://www.one80training.com/scrum-labs/scrumlab-login-form/ | one80user | one80 | button#login-button | Wrong login details |
+        | 3 | https://www.one80training.com/scrum-labs/scrumlab-login-form/ | one8 | ab | button#login-button | |
+        | 4 | https://www.one80training.com/scrum-labs/scrumlab-login-form/ | one80user | 80 | button#login-button | |
+
+
+
+
+
+
+New Steps:
+import { Given, Then, When } from "@wdio/cucumber-framework";
+
+Given(/^I am on the Google search page$/, async function() {
+    await browser.url("https://google.com");
+    console.log('>>> Google is open');
+    await browser.pause(2000);
+});
+
+When(/^I Search with (.*)$/, async function(searchItem) {
+    console.log('>>> searchItem = ',searchItem);
+    let elem_search = await $('[name=q]');
+    await elem_search.setValue(searchItem);
+    await browser.keys("Enter");
+});
+
+When(/^I click on the first result$/, async function() {
+    let elem_firstResult = await $('<h3>');
+    elem_firstResult.click();
+});
+
+Then(/^I should be taken to (.*)$/, async function(expectedUrl121) {
+    console.log('>>> Expected URL: ', expectedUrl121);
+    await expect(browser).toHaveUrl(expectedUrl121);
+});
+
+When(/^I go to the website (.*)$/, async function (website) {
+    console.log('>>> Going to website: ', website);
+    await browser.url(website);
+    await browser.maximizeWindow();
+    await browser.pause(2000);
+});
+
+When(/^I go to the (.*) tab$/, async function (tabName) {
+    switch(tabName) {
+        case 'Community':
+            console.log('>>> Going to community tab');
+            let elem_tabName = await $('.navbar__items > a:nth-of-type(6)');
+            await elem_tabName.click();
+            break;
+    }
+    await browser.pause(2000);
+});
+
+When(/^I click on the (.*) social media button$/, async function (social_media) {
+    console.log('>>> Going to ', social_media);
+    switch(social_media) {
+        case 'Youtube':
+            let elem_youtube = await $('.header-youtube-link.navbar__item.navbar__link');
+            await elem_youtube.click();
+            break;
+        case 'Twitter':
+            let elem_twitter = await $('.header-twitter-link.navbar__item.navbar__link');
+            await elem_twitter.click();
+            break;
+        case 'Github':
+            let elem_github = await $('.header-github-link.navbar__item.navbar__link');
+            await elem_github.click();
+            break;
+        case 'Discord':
+            let elem_discord = await $('.header-discord-link.navbar__item.navbar__link');
+            await elem_discord.click();
+            break;
+    }
+
+    await browser.pause(2000);
+});
+
+Then(/^I see the website is (.*)$/, async function(expectedUrl) {
+    console.log('>>> Expected Url: ', expectedUrl);
+    switch(expectedUrl){
+        case 'https://www.youtube.com/@webdriverio':
+            await browser.switchWindow("https://www.youtube.com/@webdriverio");
+            await browser.pause(2000);
+            await expect(browser).toHaveUrl(expectedUrl);
+            await browser.pause(2000);
+            await browser.closeWindow();
+            await browser.switchWindow("https://webdriver.io/");
+            break;
+        case 'https://github.com/webdriverio/webdriverio':
+            await browser.switchWindow("https://github.com/webdriverio/webdriverio");
+            await browser.pause(2000);
+            await expect(browser).toHaveUrl(expectedUrl);
+            await browser.pause(2000);
+            await browser.closeWindow();
+            await browser.switchWindow("https://webdriver.io/");
+            break;
+        case 'https://twitter.com/i/flow/login?redirect_after_login=%2Fwebdriverio':
+            await browser.switchWindow("https://twitter.com/i/flow/login?redirect_after_login=%2Fwebdriverio");
+            await browser.pause(2000);
+            await expect(browser).toHaveUrl(expectedUrl);
+            await browser.pause(2000);
+            await browser.closeWindow();
+            await browser.switchWindow("https://webdriver.io/");
+            break;
+        case 'https://discord.com/invite/H4v23gQvkm':
+            await browser.switchWindow("https://discord.com/invite/H4v23gQvkm");
+            await browser.pause(2000);
+            await expect(browser).toHaveUrl(expectedUrl);
+            let usernameInput = await $('input[name=\'username\']');
+            await expect(usernameInput).toBeDisplayed();
+            await browser.pause(2000);
+            await browser.closeWindow();
+            await browser.switchWindow("https://webdriver.io/");
+            break;
+        case 'https://www.one80training.com/scrum-labs/':
+            await browser.switchWindow("https://www.one80training.com/scrum-labs/");
+            await browser.pause(2000);
+            await expect(browser).toHaveUrl(expectedUrl);
+            await browser.pause(2000);
+            break;            
+    }
+
+});
+
+Given(/^I am on the (.*) website?/, async function(website){
+    console.log(">>> Checking if on website: ", website);
+    await expect(browser).toHaveUrl(website);
+}
+);
+
+When(/^I click on the (.*) button on the website?/, async function (button) {
+   console.log(">>> clicking button");
+   const elem_button = await $(button);
+   await elem_button.click();
+   await browser.pause(2000);
+});
+
+When(/^I enter (.*\d.*\d.*) as my username?/, async function (username) {
+    console.log(">>> Entering username: ", username);
+    const logInBox = await $('/html//input[@placeholder=\'Username\']');
+    await logInBox.clearValue();
+    await logInBox.addValue(username);
+    await browser.pause(2000);
+});
+
+When(/^I enter (.*....*) as my password?/, async function (password) {
+    console.log(">>> Entering password");
+    const passwordBox = await $('/html//input[@placeholder=\'Password\']');
+    await passwordBox.clearValue();
+    await passwordBox.addValue(password);
+    await browser.pause(2000);
+});
+
+Then(/^I should get a popup with (.*)?/, async function(message) {
+    let alertText = await browser.getAlertText();
+    await expect(alertText).toEqual(message);
+    console.log(">>> Alert Text: ", alertText);
+});
+
+From: Seonghoo Kim
+Sent: Tuesday, July 11, 2023 4:17 PM
+To: nick.kramer@webagesolutions.com <nick.kramer@webagesolutions.com>
+Subject: Lab 2 Files
+ 
+Feature:
+
+Feature: Several test cases
+
+    @demo
+    Scenario Outline: Going to One80Training
+        Given I am on the Google search page
+        When I go to the website <website>
+        Then I see the website is <expectedUrl>
+
+        Examples:
+        | ID | website | websitename |
+        | 1 | https://www.one80training.com/scrum-labs/ | https://www.one80training.com/scrum-labs/ |
+
+    @demo
+    Scenario Outline: Going to LogIn
+        Given I am on the <website> website
+        When I click on the <button> button on the website
+        Then I see the website is <expectedUrl>
+
+        Examples:
+        | ID | website | button | page |
+        | 1 | https://www.one80training.com/scrum-labs/ | .et_pb_bg_layout_dark.et_pb_button.et_pb_button_1 | https://www.one80training.com/scrum-labs/scrumlab-login-form/ |
+
+    @demo
+    Scenario Outline: Entering In Credentials
+        Given I am on the <website> website
+        When I enter <username> as my username
+        When I enter <password> as my password
+        When I click on the <button> button on the website
+        Then I should get a popup
+
+        Examples:
+        | ID | website | username | password | button |
+        | 1 | https://www.one80training.com/scrum-labs/scrumlab-login-form/ | one80 | one80abc | button#login-button |
+        | 2 | https://www.one80training.com/scrum-labs/scrumlab-login-form/ | one80user | one80 | button#login-button |
+        | 3 | https://www.one80training.com/scrum-labs/scrumlab-login-form/ | one8 | ab | button#login-button |
+        | 4 | https://www.one80training.com/scrum-labs/scrumlab-login-form/ | one80user | 80 | button#login-button |
+
+
+
+Steps:
+import { Given, Then, When } from "@wdio/cucumber-framework";
+
+Given(/^I am on the Google search page$/, async function() {
+    await browser.url("https://google.com");
+    console.log('>>> Google is open');
+    await browser.pause(2000);
+});
+
+
+Then(/^I should be taken to (.*)$/, async function(expectedUrl121) {
+    console.log('>>> Expected URL: ', expectedUrl121);
+    await expect(browser).toHaveUrl(expectedUrl121);
+});
+
+When(/^I go to the website (.*)$/, async function (website) {
+    console.log('>>> Going to website: ', website);
+    await browser.url(website);
+    await browser.maximizeWindow();
+    await browser.pause(2000);
+});
+
+
+Then(/^I see the website is (.*)$/, async function(expectedUrl) {
+    console.log('>>> Expected Url: ', expectedUrl);
+    switch(expectedUrl){
+        case 'https://www.youtube.com/@webdriverio':
+            await browser.switchWindow("https://www.youtube.com/@webdriverio");
+            await browser.pause(2000);
+            await expect(browser).toHaveUrl(expectedUrl);
+            await browser.pause(2000);
+            await browser.closeWindow();
+            await browser.switchWindow("https://webdriver.io/");
+            break;
+        case 'https://github.com/webdriverio/webdriverio':
+            await browser.switchWindow("https://github.com/webdriverio/webdriverio");
+            await browser.pause(2000);
+            await expect(browser).toHaveUrl(expectedUrl);
+            await browser.pause(2000);
+            await browser.closeWindow();
+            await browser.switchWindow("https://webdriver.io/");
+            break;
+        case 'https://twitter.com/i/flow/login?redirect_after_login=%2Fwebdriverio':
+            await browser.switchWindow("https://twitter.com/i/flow/login?redirect_after_login=%2Fwebdriverio");
+            await browser.pause(2000);
+            await expect(browser).toHaveUrl(expectedUrl);
+            await browser.pause(2000);
+            await browser.closeWindow();
+            await browser.switchWindow("https://webdriver.io/");
+            break;
+        case 'https://discord.com/invite/H4v23gQvkm':
+            await browser.switchWindow("https://discord.com/invite/H4v23gQvkm");
+            await browser.pause(2000);
+            await expect(browser).toHaveUrl(expectedUrl);
+            let usernameInput = await $('input[name=\'username\']');
+            await expect(usernameInput).toBeDisplayed();
+            await browser.pause(2000);
+            await browser.closeWindow();
+            await browser.switchWindow("https://webdriver.io/");
+            break;
+        case 'https://www.one80training.com/scrum-labs/':
+            await browser.switchWindow("https://www.one80training.com/scrum-labs/");
+            await browser.pause(2000);
+            await expect(browser).toHaveUrl(expectedUrl);
+            await browser.pause(2000);
+            break;            
+    }
+
+});
+
+Given(/^I am on the (.*) website?/, async function(website){
+    console.log(">>> Checking if on website: ", website);
+    await expect(browser).toHaveUrl(website);
+}
+);
+
+When(/^I click on the (.*) button on the website?/, async function (button) {
+   console.log(">>> clicking button");
+   const elem_button = await $(button);
+   await elem_button.click();
+   await browser.pause(2000);
+});
+
+When(/^I enter (.*\d.*\d.*) as my username?/, async function (username) {
+    console.log(">>> Entering username: ", username);
+    const logInBox = await $('/html//input[@placeholder=\'Username\']');
+    await logInBox.clearValue();
+    await logInBox.addValue(username);
+    await browser.pause(2000);
+});
+
+When(/^I enter (.*....*) as my password?/, async function (password) {
+    console.log(">>> Entering password");
+    const passwordBox = await $('/html//input[@placeholder=\'Password\']');
+    await passwordBox.clearValue();
+    await passwordBox.addValue(password);
+    await browser.pause(2000);
+});
+
+Then(/^I should get a popup?/, async function() {
+    const AlertText = await browser.getAlertText();
+    await expect(AlertText).toHaveTextContaining("Login Successful");
+    console.log(">>> Alert Text: ", AlertText);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Steps for discord:
+import { Given, Then, When } from "@wdio/cucumber-framework";
+
+Given(/^I am on the Google search page$/, async function() {
+    await browser.url("https://google.com");
+    console.log('>>> Google is open');
+    await browser.pause(2000);
+});
+
+When(/^I Search with (.*)$/, async function(searchItem) {
+    console.log('>>> searchItem = ',searchItem);
+    let elem_search = await $('[name=q]');
+    await elem_search.setValue(searchItem);
+    await browser.keys("Enter");
+});
+
+When(/^I click on the first result$/, async function() {
+    let elem_firstResult = await $('<h3>');
+    elem_firstResult.click();
+});
+
+Then(/^I should be taken to (.*)$/, async function(expectedUrl121) {
+    console.log('>>> Expected URL: ', expectedUrl121);
+    await expect(browser).toHaveUrl(expectedUrl121);
+});
+
+When(/^I go to the website (.*)$/, async function (website) {
+    console.log('>>> Going to website: ', website);
+    await browser.url(website);
+    await browser.maximizeWindow();
+    await browser.pause(2000);
+});
+
+When(/^I go to the (.*) tab$/, async function (tabName) {
+    switch(tabName) {
+        case 'Community':
+            console.log('>>> Going to community tab');
+            let elem_tabName = await $('.navbar__items > a:nth-of-type(6)');
+            await elem_tabName.click();
+            break;
+    }
+    await browser.pause(2000);
+});
+
+When(/^I click on the (.*) social media button$/, async function (social_media) {
+    console.log('>>> Going to ', social_media);
+    switch(social_media) {
+        case 'Youtube':
+            let elem_youtube = await $('.header-youtube-link.navbar__item.navbar__link');
+            await elem_youtube.click();
+            break;
+        case 'Twitter':
+            let elem_twitter = await $('.header-twitter-link.navbar__item.navbar__link');
+            await elem_twitter.click();
+            break;
+        case 'Github':
+            let elem_github = await $('.header-github-link.navbar__item.navbar__link');
+            await elem_github.click();
+            break;
+        case 'Discord':
+            let elem_discord = await $('.header-discord-link.navbar__item.navbar__link');
+            await elem_discord.click();
+            break;
+    }
+
+    await browser.pause(2000);
+});
+
+Then(/^I see the website is (.*)$/, async function(expectedUrl) {
+    console.log('>>> Expected Url: ', expectedUrl);
+    switch(expectedUrl){
+        case 'https://www.youtube.com/@webdriverio':
+            await browser.switchWindow("https://www.youtube.com/@webdriverio");
+            await browser.pause(2000);
+            await expect(browser).toHaveUrl(expectedUrl);
+            await browser.pause(2000);
+            await browser.closeWindow();
+            await browser.switchWindow("https://webdriver.io/");
+            break;
+        case 'https://github.com/webdriverio/webdriverio':
+            await browser.switchWindow("https://github.com/webdriverio/webdriverio");
+            await browser.pause(2000);
+            await expect(browser).toHaveUrl(expectedUrl);
+            await browser.pause(2000);
+            await browser.closeWindow();
+            await browser.switchWindow("https://webdriver.io/");
+            break;
+        case 'https://twitter.com/i/flow/login?redirect_after_login=%2Fwebdriverio':
+            await browser.switchWindow("https://twitter.com/i/flow/login?redirect_after_login=%2Fwebdriverio");
+            await browser.pause(2000);
+            await expect(browser).toHaveUrl(expectedUrl);
+            await browser.pause(2000);
+            await browser.closeWindow();
+            await browser.switchWindow("https://webdriver.io/");
+            break;
+        case 'https://discord.com/invite/H4v23gQvkm':
+            await browser.switchWindow("https://discord.com/invite/H4v23gQvkm");
+            await browser.pause(2000);
+            await expect(browser).toHaveUrl(expectedUrl);
+            let usernameInput = await $('input[name=\'username\']');
+            await expect(usernameInput).toBeDisplayed();
+            await browser.pause(2000);
+            await browser.closeWindow();
+            await browser.switchWindow("https://webdriver.io/");
+            break;
+        case 'https://www.one80training.com/scrum-labs/':
+            await browser.switchWindow("https://www.one80training.com/scrum-labs/");
+            await browser.pause(2000);
+            await expect(browser).toHaveUrl(expectedUrl);
+            await browser.pause(2000);
+            break;            
+    }
+
+});
