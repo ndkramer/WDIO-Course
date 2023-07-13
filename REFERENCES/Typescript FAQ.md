@@ -16,6 +16,19 @@ Note:
 For VSCode you can also select the lines you want to comment and press
 Ctrl + /
 
+**Top 10 things that a beginner should know if they are working with Typescript syntax?**
+1. TypeScript is a Superset of JavaScript: TypeScript includes everything that JavaScript does, but with additional features like static types, interfaces, and classes.
+2. Static Typing: One of the main features of TypeScript is its support for static typing. This means you can declare the type of a variable, function parameters, and function return values.
+3. Interfaces: TypeScript allows you to define complex types with interfaces. These can be used to type-check objects, function parameters, and class properties.
+4. Classes and Object-Oriented Programming: TypeScript supports object-oriented programming and includes features like classes, inheritance, and access modifiers (public, private, protected).
+5. Generics: TypeScript supports generics, which allow you to create reusable code that works with different types.
+6. Modules: TypeScript supports modules, allowing you to organize your code into separate files and namespaces.
+7. Decorators: TypeScript has support for decorators, which are a way to add annotations or modify classes, methods, and properties.
+8. Type Inference: TypeScript can often infer the type of a variable based on its initial value, reducing the need to explicitly annotate your code.
+9. Enums: TypeScript supports enumerated types (enums), which can be used to define a set of named constants.
+10. Advanced Types: TypeScript includes advanced types like union types, intersection types, type guards, and mapped types, which allow for more flexible and powerful type-checking.
+
+    
 
 **1) Here are some key differences between TypeScript and JavaScript:
 TypeScript is a superset of JavaScript, which means that it extends the capabilities of JavaScript by adding optional static typing and other features. TypeScript was developed by Microsoft to improve the development experience for large-scale applications and to provide better tooling and error checking.**
@@ -126,3 +139,5 @@ Statement #1 uses an arrow function (siteURL) => {}. Arrow functions were introd
 Statement #2 uses a traditional function expression function (siteURL) {}. This is the older way to define functions in JavaScript. Unlike arrow functions, these have their own bindings to this.
 
 In the context of your Given statements, both will work the same way as they don't rely on this or super. However, if you were to use this inside the function, the behavior would differ.
+
+
