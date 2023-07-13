@@ -44,16 +44,27 @@
     Surround with
     
     Prettier
+    
     vscode - icons
+    
     path intellisense
+    
     npm intellisense
+    
     JavaScript (ES6)
+    
     Cucumber (Given, When, Then)
+    
     Cucumber
+    
     CodeRunner   (.run)
+    
     gitignore
+    
     Dotenv official
+    
     Cuke Step Definition Generator
+    
     
 
 
