@@ -1,0 +1,201 @@
+Feature file:
+Feature: Verify the Contact Form
+    @test
+    Scenario Outline: Submit a contact form with option <topic>
+ 
+        Given I open the one8 training website
+        Given I open the Scrumlabs Contact form
+        When I enter the Name as: <name>
+        When I put in the Email address as: <email>
+        When I enter the Company as: <company>
+        When I enter the Phone as: <phone>
+        When I select the <topic> Topic from the dropdown
+        When I enter the Message as: <message>
+        When I hit the submit button
+        Then Verify that the form is submitted successfully
+ 
+    Examples:
+            | Test ID | name | email        | company | phone      | topic    | message |
+            | 1       | John | john@one.com | one     | 1234567890 | Choice 1 | Hello   |
+            | 2       | John | john@one.com | one     | 1234567890 | Choice 2 | Hello   |
+            | 3       | John | john@one.com | one     | 1234567890 | Choice 3 | Hello   |
+            | 4       | John | john@one.com | one     |            | Choice 2 | Hello   |
+ 
+    @test
+    Scenario Outline: Submit a contact form with missing Name field
+ 
+        Given I open the one8 training website
+        Given I open the Scrumlabs Contact form
+        When I put in the Email address as: <email>
+        When I enter the Company as: <company>
+        When I enter the Phone as: <phone>
+        When I select the <topic> Topic from the dropdown
+        When I enter the Message as: <message>
+        When I hit the submit button
+        Then Since Name field is empty, I Verify that the form has error warning with the text: "Please fill out the Name field."
+        When I enter the Name as: <name>
+        When I hit the submit button
+        Then Verify that the form is submitted successfully
+ 
+    Examples:
+            | Test ID | name | email        | company | phone      | topic    | message |
+            | 5       | John | john@one.com | one     | 1234567890 | Choice 2 | Hello   |
+ 
+    @test
+    Scenario Outline: Submit a contact form with missing Name and Company field
+ 
+        Given I open the one8 training website
+        Given I open the Scrumlabs Contact form
+        When I put in the Email address as: <email>
+        When I enter the Phone as: <phone>
+        When I select the <topic> Topic from the dropdown
+        When I enter the Message as: <message>
+        When I hit the submit button
+        Then Since Name field is empty, I Verify that the form has error warning with the text: "Please fill out the Name field."
+        When I enter the Name as: <name>
+        When I hit the submit button
+        Then Since Company field is empty, I Verify that the form has error warning with the text: "Please fill out the Company field."
+        When I enter the Company as: <company>
+        When I hit the submit button
+        Then Verify that the form is submitted successfully
+ 
+    Examples:
+            | Test ID | name | email        | company | phone      | topic    | message |
+            | 5       | John | john@one.com | one     | 1234567890 | Choice 1 | Hello   |
+ 
+    @test
+    Scenario Outline: Submit a contact form with missing Message field
+ 
+        Given I open the one8 training website
+        Given I open the Scrumlabs Contact form
+        When I enter the Name as: <name>
+        When I put in the Email address as: <email>
+        When I enter the Company as: <company>
+        When I enter the Phone as: <phone>
+        When I select the <topic> Topic from the dropdown
+        When I hit the submit button
+        Then Since Message field is empty, I Verify that the form has error warning with the text: "Please fill out message field."
+        When I enter the Message as: <message>
+        When I hit the submit button
+        Then Verify that the form is submitted successfully
+ 
+    Examples:
+            | Test ID | name | email        | company | phone      | topic    | message |
+            | 5       | John | john@one.com | one     | 1234567890 | Choice 3 | Hello   |
+ 
+    @test
+    Scenario Outline: Submit a contact form with missing Name and Message field
+ 
+        Given I open the one8 training website
+        Given I open the Scrumlabs Contact form
+        When I put in the Email address as: <email>
+        When I enter the Company as: <company>
+        When I enter the Phone as: <phone>
+        When I select the <topic> Topic from the dropdown
+        When I hit the submit button
+        Then Since Name field is empty, I Verify that the form has error warning with the text: "Please fill out the Name field."
+        When I enter the Name as: <name>
+        When I hit the submit button
+        Then Since Message field is empty, I Verify that the form has error warning with the text: "Please fill out message field."
+        When I enter the Message as: <message>
+        When I hit the submit button
+        Then Verify that the form is submitted successfully
+ 
+    Examples:
+            | Test ID | name | email        | company | phone      | topic    | message |
+            | 5       | John | john@one.com | one     | 1234567890 | Choice 1 | Hello   |
+ 
+    @test
+    Scenario Outline: Submit a contact form with missing Email field
+ 
+        Given I open the one8 training website
+        Given I open the Scrumlabs Contact form
+        When I enter the Name as: <name>
+        When I enter the Company as: <company>
+        When I enter the Phone as: <phone>
+        When I select the <topic> Topic from the dropdown
+        When I enter the Message as: <message>
+        When I hit the submit button
+        Then Since Email field is empty, I Verify that the form has error warning with the text: "Please fill out the Email field."
+        When I put in the Email address as: <email>
+        When I hit the submit button
+        Then Verify that the form is submitted successfully
+ 
+    Examples:
+            | Test ID | name | email        | company | phone      | topic    | message |
+            | 1       | John | john@one.com | one     | 1234567890 | Choice 3 | Hello   |
+ 
+Steps file:
+import { Given, Then, When } from "@wdio/cucumber-framework";
+ 
+Given(/^I open the one8 training website$/,async function() {
+    await browser.url(https://www.one80training.com/scrum-labs/);
+    await browser.maximizeWindow()
+    console.log('>>> One8 Training webpage is open');
+    await browser.pause(2000);
+})
+ 
+When(/^I open the Scrumlabs Contact form$/,async function() {
+    let contact_button = await $('.et_pb_bg_layout_dark.et_pb_button.et_pb_button_0');
+    await contact_button.click();
+})
+ 
+When(/^I enter the (Name|Company|Phone|Message) as: (.*)$/,async function(field: string, value: string) {
+    const locatorMap = {
+        "Name":"input[name='cname']",
+        "Company":"input[name='company']",
+        "Phone":"input[name='phone']",
+        "Message":"textarea[name='message']"
+    }
+    let ele_field = await $(`${locatorMap[field]}`);
+    await ele_field.setValue(value);
+    await browser.pause(1000);
+})
+ 
+When(/^I put in the Email address as: (.+@.+\..{3})$/,async function(value: string) {
+    let email = await $(`input[name='cemail']`);
+    await email.setValue(value);
+    await browser.pause(1000);
+})
+ 
+When(/^I select the (.*) Topic from the dropdown$/,async function(value: string) {
+    let topic = await $(`select[name='topic']`);
+    await topic.selectByVisibleText(value);
+    await browser.pause(1000);
+})
+ 
+When(/^I hit the submit button$/,async function() {
+    let topic = await $(`input[value='Submit']`);
+    await topic.click();
+    await browser.pause(1000);
+})
+ 
+Then(/^Verify that the form is submitted successfully$/,async function() {
+    let success_message = await $(`<h1>`);
+    let text_message = await success_message.getText()
+    await expect(text_message).toEqual("THANK YOU!");
+    await browser.pause(1000);
+})
+ 
+Then(/^Since (.*) field is empty, I Verify that the form has error warning with the text: "(.*)"$/,async function(field: string, message: string) {
+    const errorMap = {
+        "Name":"span#nameError",
+        "Email":"span#emailError",
+        "Company":"span#companyError"
+    }
+    if(field == "Message"){
+        let alert_text = await browser.getAlertText();
+        await expect(alert_text).toEqual(message);
+        console.log('>>> alert_text: ',alert_text);
+        await browser.pause(1000);
+        await browser.acceptAlert();
+    }
+    else {
+        let warning = await $(`${errorMap[field]}`);
+        let warning_message = await warning.getText()
+        await expect(warning_message).toEqual(message);
+        await browser.pause(1000);
+    }
+   
+})
+ 
