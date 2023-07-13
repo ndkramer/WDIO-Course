@@ -1,3 +1,6 @@
+#note from Instructor:
+This is an excellent working example, it did have one error-see line #52.
+
 Feature:
 Feature: Form Test
  
@@ -46,7 +49,7 @@ Feature: Form Test
         | https://www.one80training.com/scrum-labs/  | .et_pb_bg_layout_dark.et_pb_button.et_pb_button_0  | https://www.one80training.com/scrum-labs/scrumlabs-contact-form/  ||| 123-456-7890 | hello | abc@abc.com | 1 | form[name='myForm'] > input[value='Submit'] | span#nameError | Please fill out the Name field. ||
         | https://www.one80training.com/scrum-labs/  | .et_pb_bg_layout_dark.et_pb_button.et_pb_button_0  | https://www.one80training.com/scrum-labs/scrumlabs-contact-form/  | Danqi | InterSystems | 123-456-7890 || abc@abc.com | 3 | form[name='myForm'] > input[value='Submit'] ||| Please fill out message field. |
         | https://www.one80training.com/scrum-labs/  | .et_pb_bg_layout_dark.et_pb_button.et_pb_button_0  | https://www.one80training.com/scrum-labs/scrumlabs-contact-form/  || InterSystems | 123-456-7890 || abc@abc.com | 1 | form[name='myForm'] > input[value='Submit'] | span#nameError | Please fill out the Name field. ||
- 
+ #the last test on this section with the "error: Please fill out the Name field.": appears to have an issue
 
 @test
     Scenario: Test no email
