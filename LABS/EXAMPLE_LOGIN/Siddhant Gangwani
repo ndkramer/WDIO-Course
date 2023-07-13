@@ -1,0 +1,59 @@
+Feature File:
+Feature: Test to make sure we can Login
+@demoLogin
+ 
+  Scenario Outline: Can we Login
+ 
+   Given I am on the one80Training Website
+   When I Scroll and click the Lab Resource Tab
+   When Login the <username> and <password>
+   Then Login alert with <message> message  
+ 
+    Examples:
+      | Test ID | username  | password | message                          |
+      | 1       | one80     | one80abc | Login Successful                 |
+      | 2       | one80user | one80abc | Login Successful                 |
+      | 3       | one8user9 | 123      | Wrong login details              |
+      | 4       | on8e5     | one80abc | Wrong login details              |
+      # | 5       | one80     | o        | Then Shouldn't Even Run and Fail |
+ 
+Step File:
+import { Given, Then, When } from "@wdio/cucumber-framework";
+ 
+Given(/^I am on the one80Training Website$/, async function() {
+    await browser.url(https://www.one80training.com/scrum-labs/);
+    console.log('>>> Website is Open');
+    await browser.pause(3000);
+});
+ 
+When(/^I Scroll and click the Lab Resource Tab$/,async function() {
+    await browser.maximizeWindow()
+    await browser.scroll(0, 200)
+    let ele = await $('.et_pb_bg_layout_dark.et_pb_button.et_pb_button_1');
+    await ele.click();
+    console.log('>>> Lab Resource Tab is Open');
+    await browser.pause(3000);
+});
+ 
+When(/^Login the (.*\d.*\d.*) and (.*.{3}.*)$/, async function(username,password) {
+    console.log('>>>username: ',username)
+    let eleUsername = await $('input#text');
+    let elePassword = await $('input#password')
+    let loginButton = await $('button#login-button')
+    await eleUsername.setValue(username)
+    await elePassword.setValue(password)
+    await loginButton.click()
+    await browser.pause(2000);
+});
+ 
+Then(/^Login alert with (.*) message$/, async function (message) {
+    let alert=await browser.getAlertText()
+    console.log('>>> Alert: ',alert);
+    await browser.pause(1000);
+    await browser.acceptAlert();
+    await expect(alert).toEqual(message)
+    await browser.pause(2000);
+});
+ 
+ 
+ 
