@@ -1,0 +1,174 @@
+Feature:
+
+Feature: Last Lab Exercise
+
+    @demo
+    Scenario Outline: Going to one80 website
+
+    Given I am on the Google search page
+    When I go to the <website to go> website
+    Then I should be on the <destination> website
+
+    Examples:
+        | ID | website to go | destination |
+        | 1  | https://www.one80training.com/scrum-labs/  | https://www.one80training.com/scrum-labs/  |
+
+   
+    @demo
+    Scenario Outline: Going to Forms
+
+    Given I am on the <current website> website
+    When I click on the <button> button on the website
+    Then I should be on the <destination> website
+
+    Examples:
+        | ID | current website | button | destination |
+        | 1 | https://www.one80training.com/scrum-labs/ | .et_pb_bg_layout_dark.et_pb_button.et_pb_button_0 | https://www.one80training.com/scrum-labs/scrumlabs-contact-form/ |
+
+
+    @demo
+    Scenario Outline: Filling out Forms Correctly
+
+    Given I am on the <current website> website
+    When I fill out the <fieldName1> field with <nameValue>
+    When I fill out the <fieldName2> field with <emailValue>
+    When I fill out the <fieldName3> field with <companyValue>
+    When I fill out the <fieldName4> field with <phoneValue>
+    When I fill out the <fieldName5> field with <choiceValue>
+    When I fill out the <fieldName6> field with <messageValue>
+    When I click on the <button> button on the website
+    Then I should be on the <destination> website
+
+    Examples:
+        | ID | current website | fieldName1 | nameValue | fieldName2 | emailValue | fieldName3 | companyValue | fieldName4 | phoneValue | fieldName5 | choiceValue | fieldName6 | messageValue | button | destination |
+        | 1 | https://www.one80training.com/scrum-labs/scrumlabs-contact-form/ | name | Paul | email | dummy@google.com | company | ISC | phone | 1234567890 | topic | choice2 | message | hello | form[name='myForm'] > input[value='Submit'] | https://www.one80training.com/thank_you |
+        | 2 | https://www.one80training.com/scrum-labs/scrumlabs-contact-form/ | name | Nick | email | dummy2@hotmail.com | company | one80 | phone | 1234584790 | topic | choice1 | message | trying again with a different message | form[name='myForm'] > input[value='Submit'] | https://www.one80training.com/thank_you |
+        | 3 | https://www.one80training.com/scrum-labs/scrumlabs-contact-form/ | name | Paul | email | dummy@google.com | company | ISC | phone | 1234567890 | topic | choice3 | message | hello agaom | form[name='myForm'] > input[value='Submit'] | https://www.one80training.com/thank_you |
+        | 3 | https://www.one80training.com/scrum-labs/scrumlabs-contact-form/ | name | Paul | email | dummy@google.com | company | ISC | phone || topic | choice3 | message | hello agaom | form[name='myForm'] > input[value='Submit'] | https://www.one80training.com/thank_you |
+
+
+    @demo
+    Scenario Outline: Filling out Forms Without Name/Company
+
+    Given I am on the <current website> website
+    When I fill out the <fieldName1> field with <value1>
+    When I fill out the <fieldName2> field with <value2>
+    When I fill out the <fieldName3> field with <value3>
+    When I fill out the <fieldName4> field with <value4>
+    When I fill out the <fieldName5> field with <value5>
+    When I click on the <button> button on the website
+    Then I should be see the warning <warning> with <aPopup> popup
+
+        Examples:
+            | ID | current website                                                  | fieldName1 | value1           | fieldName2 | value2             | fieldName3 | value3     | fieldName4 | value4  | fieldName5 | value5                                | button                                      | warning                        | aPopup |
+            | 1  | https://www.one80training.com/scrum-labs/scrumlabs-contact-form/ | email      | dummy@google.com | company    | ISC                | phone      | 1234567890 | topic      | choice2 | message    | hello                                 | form[name='myForm'] > input[value='Submit'] | //*[@id="nameError"]           | no     |
+            | 2  | https://www.one80training.com/scrum-labs/scrumlabs-contact-form/ | name       | Nick             | email      | dummy2@hotmail.com | phone      | 1234584790 | topic      | choice1 | message    | trying again with a different message | form[name='myForm'] > input[value='Submit'] | //*[@id="companyError"]        | no     |
+            | 3  | https://www.one80training.com/scrum-labs/scrumlabs-contact-form/ | name       | Nick             | email      | dummy2@hotmail.com | phone      | 1234584790 | topic      | choice3 | company    | ISC                                   | form[name='myForm'] > input[value='Submit'] | Please fill out message field. | yes    |
+            | 4  | https://www.one80training.com/scrum-labs/scrumlabs-contact-form/ | name       | Nick             | email      | dummy2@hotmail.com | phone      | 1234584790 | topic      | choice1 | company    | ISC                                   | form[name='myForm'] > input[value='Submit'] | Please fill out message field. | yes    |
+            | 5  | https://www.one80training.com/scrum-labs/scrumlabs-contact-form/ | email      | dummy@google.com | company    | ISC                | phone      | 1234567890 | topic      | choice1 | message    | hello                                 | form[name='myForm'] > input[value='Submit'] | //*[@id="nameError"]           | no     |
+            | 2  | https://www.one80training.com/scrum-labs/scrumlabs-contact-form/ | name       | Paul             | company    | ISC                | phone      | 1234584790 | topic      | choice1 | message    | trying again with a different message | form[name='myForm'] > input[value='Submit'] | //*[@id="emailError"]          | no     |
+
+
+
+
+
+
+
+
+
+
+Steps:
+
+import { Given, When, Then } from "@wdio/cucumber-framework";
+
+Given(/^I am on the Google search page?/, async function(){
+    await browser.url("https://google.com");
+    console.log(">>> Inside Google");
+    await browser.pause(2000);
+})
+
+Given(/^I am on the (.*) website?/, async function (website) {
+    await browser.url(website);
+    await expect(browser).toHaveUrl(website);
+    console.log(">>> Inside ", website);
+    await browser.pause(2000);
+});
+
+When(/^I go to the (.*) website?/, async function (website) {
+    await browser.url(website);
+    console.log(">>> Going to website: ", website);
+    await browser.maximizeWindow();
+    await browser.pause(2000);
+});
+
+Then(/^I should be on the (.*) website?/, async function(website) {
+    await expect(browser).toHaveUrl(website);
+    console.log(">>> Succesfully in ", website);
+    await browser.pause(2000);
+});
+
+When(/^I click on the (.*) button on the website?/, async function (button){
+    const elem_button = await $(button);
+    await expect(elem_button).toExist();
+    console.log(">>> Clicking button...")
+    await elem_button.click();
+    await browser.pause(2000);
+});
+
+When(/^I fill out the (.*) field with (.*)?/, async function (fieldName : string, fieldValue) {
+    let elem_field :string = 'form[name=\'myForm\'] > input[name=\'';
+    let elem_newfield;
+    switch(fieldName){
+        case 'name':
+            elem_newfield = $(elem_field + 'cname\']');
+            break;
+        case 'email':
+            elem_newfield = $(elem_field + 'cemail\']');
+            break;
+        case 'company':
+            elem_newfield = $(elem_field + 'company\']');
+            break;
+        case 'phone':
+            elem_newfield = $(elem_field + 'phone\']');
+            break;
+        case 'topic':
+            elem_newfield = $('form[name=\'myForm\'] > select[name=\'topic\']');
+            break;
+        case 'message':
+            elem_newfield = $('form[name=\'myForm\'] > textarea[name=\'message\']');
+           
+            break;
+    }
+    if(fieldName === 'topic')
+    {
+        await expect(elem_newfield).toExist();
+        await elem_newfield.selectByAttribute('value', fieldValue);
+        console.log(">>> Chose ", fieldValue);
+    }
+    else
+    {
+        await expect(elem_newfield).toExist();
+        await elem_newfield.clearValue();
+        await elem_newfield.addValue(fieldValue);
+        if(fieldName === 'email')
+        {
+            await expect(elem_newfield).toHaveValue(/^.+@.+\.\S\S\S?/);
+        }
+        console.log(">>> Added Value ", fieldValue);
+        await browser.pause(500);
+    }
+});
+
+Then(/^I should be see the warning (.*) with (.*) popup?/, async function(warning, popup) {
+    switch(popup){
+        case 'no':
+            await expect($(warning)).toExist();
+            console.log(">>> Seeing error: ", warning);
+            break;
+        case 'yes':
+            let alertText = await browser.getAlertText();
+            await expect(alertText).toEqual(warning);
+            console.log(">>> Warning: ", warning);
+    }
+
+});
