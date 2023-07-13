@@ -1,4 +1,4 @@
- 
+ #Instructor note: well done; runs perfect
 Feature:
  
 Feature: contact test
@@ -26,8 +26,10 @@ Feature: contact test
         | 7  | John | John@abc.com | corp | 123-123-1234 | 3 |  | fail |
         | 8  |  | John@abc.com | corp | 123-123-1234 | 1 |  | fail |
         | 9  | John |  | corp | 123-123-1234 | 3 | dsfef | fail |
+
+
 Steps:
- 
+import { Given, Then, When } from "@wdio/cucumber-framework";
 Given(/^I am on one80 site$/, async function() {
     await browser.setWindowSize(1920, 1080);
     await browser.url(https://www.one80training.com/scrum-labs/);
