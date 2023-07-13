@@ -1,20 +1,4 @@
-**Comment: Single line:**
-//
 
-
-
-**Block comment:**
-
-/*
-
-You can write multiple lines of comments here
-
-*/
-
-
-Note:
-For VSCode you can also select the lines you want to comment and press
-Ctrl + /
 
 **Top 10 things that a beginner should know if they are working with Typescript syntax?**
 1. TypeScript is a Superset of JavaScript: TypeScript includes everything that JavaScript does, but with additional features like static types, interfaces, and classes.
@@ -27,8 +11,6 @@ Ctrl + /
 8. Type Inference: TypeScript can often infer the type of a variable based on its initial value, reducing the need to explicitly annotate your code.
 9. Enums: TypeScript supports enumerated types (enums), which can be used to define a set of named constants.
 10. Advanced Types: TypeScript includes advanced types like union types, intersection types, type guards, and mapped types, which allow for more flexible and powerful type-checking.
-
-    
 
 **1) Here are some key differences between TypeScript and JavaScript:
 TypeScript is a superset of JavaScript, which means that it extends the capabilities of JavaScript by adding optional static typing and other features. TypeScript was developed by Microsoft to improve the development experience for large-scale applications and to provide better tooling and error checking.**
