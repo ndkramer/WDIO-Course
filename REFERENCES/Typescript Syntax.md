@@ -270,6 +270,31 @@ In this example, the function checks the weather and suggests an activity based 
 
 
 
+# ? (Optional Parameters and Properties)
+In TypeScript, function parameters and object properties can be marked as optional with the ? symbol. 
+This means they may or may not be provided.
+
+   Example:
+   
+typescript
+   function greet(name?: string) {
+     // ...
+   }
+
+# ' ' vs " " (Single vs Double Quotes)
+
+In TypeScript, there is no difference between single quotes (') and double quotes ("). Both can be used interchangeably to define string values. The choice between the two often comes down to personal preference or coding style guidelines.
+
+Here are examples of both:
+
+typescript
+let singleQuotedString = 'Hello, world!';
+let doubleQuotedString = "Hello, world!";
+
+Both singleQuotedString and doubleQuotedString are valid and equivalent.
+
+However, it's important to be consistent in your usage of quotes. Mixing single and double quotes in the same project can lead to confusion and make your code harder to read. Some teams or projects may have a preferred style, so always check if there are any established guidelines you should follow.
+
 
 
 
