@@ -1,4 +1,5 @@
-Feature file:
+#Instructor note: this feature file has multiple scenarios which is a great approach, They way the steps file is written to have the minimal amount of code is VERY well done.
+
 Feature: Verify the Contact Form
     @test
     Scenario Outline: Submit a contact form with option <topic>
